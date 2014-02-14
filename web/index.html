@@ -1,0 +1,55 @@
+<!doctype html>
+<html ng-app="monitorApp">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <script src="assets/js/angular.js"></script>
+    <script src="assets/js/angular-route.js"></script>
+    <script src="assets/js/angular-resource.js"></script>
+    <script src="assets/js/angular-animate.js"></script>
+    <script src="assets/js/moment.js"></script>
+    <script src="assets/js/underscore.js"></script>
+    <script src="app/app.js"></script>
+    <script src="app/controllers.js"></script>
+    <script src="app/services.js"></script>
+    <script src="app/directives.js"></script>
+
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.flot.js"></script>
+    <script src="assets/js/jquery.flot.categories.js"></script>
+
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="assets/css/bootstrap-glyphicons.css" rel="stylesheet" media="screen">
+    <link href="assets/css/style.css" rel="stylesheet">
+    <link href="assets/css/icon/font-awesome.css" rel="stylesheet">
+</head>
+<body ng-controller="DashboardCtrl">
+
+<div id="wrap">
+    <div id="menu" role="navigation">
+        <ul class="main-menu">
+            <li class="active"><a href="dashboard.html"><i class="general"></i> Dashboard</a></li>
+        </ul>
+    </div>
+
+    <!--BEGIN MAIN CONTENT-->
+    <div id="main" role="main">
+        <div class="block">
+            <div class="clearfix"></div>
+
+            <div ng-view></div>
+
+            <!--BEGIN FOOTER-->
+            <div class="footer">
+                <div class="clearfix"></div>
+            </div>
+            <!--BEGIN FOOTER END-->
+
+            <div class="clearfix"></div>
+        </div><!--end .block-->
+    </div>
+    <!--MAIN CONTENT END-->
+</div>
+
+</body>
+</html>

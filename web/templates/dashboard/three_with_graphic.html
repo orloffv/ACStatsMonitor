@@ -1,0 +1,43 @@
+<div>
+    <div class="pagetitle">
+        <h1>Dashboard</h1>
+        <div class="btn-group">
+            <button ng-class="filterDate === 'today' ? 'active' : ''" ng-click="filterDate = 'today'; refresh(); $event.preventDefault();"
+                    class="btn">
+                Сегодня
+            </button>
+            <button ng-class="filterDate === 'week' ? 'active' : ''" ng-click="filterDate = 'week'; refresh(); $event.preventDefault();"
+                    class="btn">
+                Неделя
+            </button>
+            <button ng-class="filterDate === 'month' ? 'active' : ''" ng-click="filterDate = 'month'; refresh(); $event.preventDefault();"
+                    class="btn">
+                Месяц
+            </button>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+    <div class="info-box">
+        <div class="row stats-box">
+            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                <div class="stats-box-title">Сессии</div>
+                <div class="stats-box-all-info"><span>{{ counts.sessions }}</span></div>
+                <div class="chart" data-chart="sessions"></div>
+            </div>
+
+            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                <div class="stats-box-title">События</div>
+                <div class="stats-box-all-info"><span>{{ counts.events }}</span></div>
+                <div class="chart" data-chart="events"></div>
+            </div>
+
+            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                <div class="stats-box-title">Страницы</div>
+                <div class="stats-box-all-info"><span>{{ counts.hits }}</span></div>
+                <div class="chart" data-chart="hits"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
