@@ -724,6 +724,7 @@ span.add-on { background-color::#f2f2f2; }
 }
 .list-visitor li .linecustom {
     padding-right:20px;
+    width: 40px;
 }
 .list-visitor li .sparkbar {
     padding-right:40px;

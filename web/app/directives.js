@@ -1,37 +1,36 @@
 'use strict';
 
 monitorApp
-    .directive('visitors', ['countByDate', function(countByDate) {
+    .directive('usersCompanies', ['usersCompaniesByDate', function(usersCompaniesByDate) {
         return {
-            templateUrl: 'templates/dashboard/visitors.html',
+            templateUrl: 'templates/dashboard/users_companies.html',
             replace: true,
-            scope: {},
+            scope: true,
             controller: function($scope) {
                 $scope.counts = {
-                    hits: 0,
-                    sessions: 0,
-                    events: 0,
                     users_last_hit: 0,
                     users_new: 0,
                     companies: 0,
                     companies_new: 0
                 };
 
-                $scope.filterDate = 'today';
+                $scope.$watch('filter.date', function() {
+                    getData();
+                });
 
-                $scope.getData = function() {
+                var getData = function() {
                     $scope.status = 'loading';
                     var filter = {};
                     filter.to = moment().format('DD.MM.YYYY');
-                    if ($scope.filterDate === 'today') {
+                    if ($scope.filter.date === 'today') {
                         filter.from = moment().format('DD.MM.YYYY');
-                    } else if ($scope.filterDate === 'week') {
+                    } else if ($scope.filter.date === 'week') {
                         filter.from = moment().subtract('w', 1).format('DD.MM.YYYY');
-                    } else if ($scope.filterDate === 'month') {
+                    } else if ($scope.filter.date === 'month') {
                         filter.from = moment().subtract('M', 1).format('DD.MM.YYYY');
                     }
 
-                    countByDate.get(filter,
+                    usersCompaniesByDate.get(filter,
                         function(data) {
                             $scope.status = 'loaded';
                             $scope.counts = data;
@@ -41,9 +40,6 @@ monitorApp
                         }
                     );
                 };
-
-                $scope.refresh = $scope.getData;
-                $scope.getData();
             }
         }}]
     )
@@ -51,7 +47,7 @@ monitorApp
         return {
             templateUrl: 'templates/dashboard/three_with_graphic.html',
             replace: true,
-            scope: {},
+            scope: true,
             controller: function($scope) {
                 $scope.counts = {
                     hits: 0,
@@ -59,18 +55,20 @@ monitorApp
                     events: 0
                 };
 
-                $scope.filterDate = 'today';
+                $scope.$watch('filter.date', function() {
+                    getData();
+                });
 
-                $scope.getData = function() {
+                var getData = function() {
                     $scope.status = 'loading';
 
                     var filter = {};
                     filter.to = moment().format('DD.MM.YYYY');
-                    if ($scope.filterDate === 'today') {
+                    if ($scope.filter.date === 'today') {
                         filter.from = moment().format('DD.MM.YYYY');
-                    } else if ($scope.filterDate === 'week') {
+                    } else if ($scope.filter.date === 'week') {
                         filter.from = moment().subtract('w', 1).format('DD.MM.YYYY');
-                    } else if ($scope.filterDate === 'month') {
+                    } else if ($scope.filter.date === 'month') {
                         filter.from = moment().subtract('M', 1).format('DD.MM.YYYY');
                     }
 
@@ -88,9 +86,6 @@ monitorApp
                         }
                     );
                 };
-
-                $scope.refresh = $scope.getData;
-                $scope.getData();
             },
             link: function($scope, element) {
                 var lineOptions = {
@@ -164,7 +159,7 @@ monitorApp
                     if ($scope.graphic) {
                         _.each(chartOptions, function(options, chartName) {
                             var data = _.map($scope.graphic[chartName], function(value, key) {
-                                return [getYtitle($scope.filterDate, key, _.size($scope.graphic[chartName])), value];
+                                return [getYtitle($scope.filter.date, key, _.size($scope.graphic[chartName])), value];
                             });
 
                             $.plot(
@@ -213,17 +208,17 @@ monitorApp
             replace: true,
             scope: {},
             controller: function($scope) {
-                $scope.filterDate = 'today';
+                $scope.filter = {date: 'today'};
 
                 $scope.getData = function() {
                     $scope.status = 'loading';
                     var filter = {};
                     filter.to = moment().format('DD.MM.YYYY');
-                    if ($scope.filterDate === 'today') {
+                    if ($scope.filter.date === 'today') {
                         filter.from = moment().format('DD.MM.YYYY');
-                    } else if ($scope.filterDate === 'week') {
+                    } else if ($scope.filter.date === 'week') {
                         filter.from = moment().subtract('w', 1).format('DD.MM.YYYY');
-                    } else if ($scope.filterDate === 'month') {
+                    } else if ($scope.filter.date === 'month') {
                         filter.from = moment().subtract('M', 1).format('DD.MM.YYYY');
                     }
 

@@ -3,15 +3,15 @@
         <h1>Dashboard</h1>
 
         <div class="btn-group pull-right">
-            <button ng-class="filterDate === 'today' ? 'active' : ''" ng-click="filterDate = 'today'; refresh(); $event.preventDefault();"
+            <button ng-class="filter.date === 'today' ? 'active' : ''" ng-click="filter.date = 'today'; $event.preventDefault();"
                     class="btn">
                 Сегодня
             </button>
-            <button ng-class="filterDate === 'week' ? 'active' : ''" ng-click="filterDate = 'week'; refresh(); $event.preventDefault();"
+            <button ng-class="filter.date === 'week' ? 'active' : ''" ng-click="filter.date = 'week'; $event.preventDefault();"
                     class="btn">
                 Неделя
             </button>
-            <button ng-class="filterDate === 'month' ? 'active' : ''" ng-click="filterDate = 'month'; refresh(); $event.preventDefault();"
+            <button ng-class="filter.date === 'month' ? 'active' : ''" ng-click="filter.date = 'month'; $event.preventDefault();"
                     class="btn">
                 Месяц
             </button>

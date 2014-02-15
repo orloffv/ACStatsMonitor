@@ -7,15 +7,15 @@
             </div>
             <div class="pull-right">
                 <div class="btn-group">
-                    <button ng-class="filterDate === 'today' ? 'active' : ''" ng-click="filterDate = 'today'; refresh(); $event.preventDefault();"
+                    <button ng-class="filter.date === 'today' ? 'active' : ''" ng-click="filter.date = 'today'; refresh(); $event.preventDefault();"
                             class="btn">
                         Сегодня
                     </button>
-                    <button ng-class="filterDate === 'week' ? 'active' : ''" ng-click="filterDate = 'week'; refresh(); $event.preventDefault();"
+                    <button ng-class="filter.date === 'week' ? 'active' : ''" ng-click="filter.date = 'week'; refresh(); $event.preventDefault();"
                             class="btn">
                         Неделя
                     </button>
-                    <button ng-class="filterDate === 'month' ? 'active' : ''" ng-click="filterDate = 'month'; refresh(); $event.preventDefault();"
+                    <button ng-class="filter.date === 'month' ? 'active' : ''" ng-click="filter.date = 'month'; refresh(); $event.preventDefault();"
                             class="btn">
                         Месяц
                     </button>
@@ -34,8 +34,11 @@
 
         <div class="grid-content overflow">
             <ul class="list-visitor" ng-repeat="item in urls">
-                <li>{{ item.url }}: ({{ item.count }})
-                    <span class="number">{{ item.avg }}</span>
+                <li>
+                    <span style="float:left;" class="linecustom">{{ item.count }}</span>
+                    <span style="float:left;">{{ item.url }}</span>
+                    <span class="number number-right">{{ item.avg / 1000 | number:3 }}</span>
+                    <span class="clearfix"></span>
                 </li>
             </ul>
         </div>

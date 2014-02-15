@@ -3,9 +3,9 @@
 /* Services */
 
 angular.module('restServices', ['ngResource'])
-    .factory('countByDate', ['$resource', 'configuration',
+    .factory('usersCompaniesByDate', ['$resource', 'configuration',
         function($resource, configuration) {
-            return $resource(configuration.api.host + ':\:port/api/servers/:serverId/statistic/all/count_by_date', {
+            return $resource(configuration.api.host + ':\:port/api/servers/:serverId/statistic/users_companies/count_by_date', {
                 port: configuration.api.port,
                 serverId: '52faf353f3e40400009989e1'
             }, {
