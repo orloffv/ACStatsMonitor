@@ -2,7 +2,7 @@
     <div class="grid">
         <div class="grid-title">
             <div class="pull-left">
-                <span class="title">Статистика посещений</span>
+                <span class="title">Медленные страницы</span>
                 <div class="clearfix"></div>
             </div>
             <div class="pull-right">
@@ -33,27 +33,9 @@
         </div>
 
         <div class="grid-content overflow">
-            <ul class="list-visitor">
-                <li>Страниц:
-                    <span class="number">{{ counts.hits }}</span>
-                </li>
-                <li>Сессий:
-                    <span class="number">{{ counts.sessions }}</span>
-                </li>
-                <li>Событий:
-                    <span class="number">{{ counts.events }}</span>
-                </li>
-                <li>Пользователей:
-                    <span class="number">{{ counts.users_last_hit }}</span>
-                </li>
-                <li>Новых пользователей:
-                    <span class="number">{{ counts.users_new }}</span>
-                </li>
-                <li>Компаний:
-                    <span class="number">{{ counts.companies }}</span>
-                </li>
-                <li>Новых компаний:
-                    <span class="number">{{ counts.companies_new }}</span>
+            <ul class="list-visitor" ng-repeat="item in urls">
+                <li>{{ item.url }}: ({{ item.count }})
+                    <span class="number">{{ item.avg }}</span>
                 </li>
             </ul>
         </div>

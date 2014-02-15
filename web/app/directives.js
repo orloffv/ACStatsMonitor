@@ -1,15 +1,26 @@
 'use strict';
 
 monitorApp
-    .directive('visitors', ['CountAll', function(CountAll) {
+    .directive('visitors', ['countByDate', function(countByDate) {
         return {
             templateUrl: 'templates/dashboard/visitors.html',
             replace: true,
             scope: {},
             controller: function($scope) {
+                $scope.counts = {
+                    hits: 0,
+                    sessions: 0,
+                    events: 0,
+                    users_last_hit: 0,
+                    users_new: 0,
+                    companies: 0,
+                    companies_new: 0
+                };
+
                 $scope.filterDate = 'today';
 
                 $scope.getData = function() {
+                    $scope.status = 'loading';
                     var filter = {};
                     filter.to = moment().format('DD.MM.YYYY');
                     if ($scope.filterDate === 'today') {
@@ -20,9 +31,15 @@ monitorApp
                         filter.from = moment().subtract('M', 1).format('DD.MM.YYYY');
                     }
 
-                    CountAll.get(filter, function(data){
-                        $scope.counts = data;
-                    });
+                    countByDate.get(filter,
+                        function(data) {
+                            $scope.status = 'loaded';
+                            $scope.counts = data;
+                        },
+                        function(error) {
+                            $scope.status = 'error';
+                        }
+                    );
                 };
 
                 $scope.refresh = $scope.getData;
@@ -30,15 +47,23 @@ monitorApp
             }
         }}]
     )
-    .directive('threeWithGraphic', ['ThreeGrouped', function(ThreeGrouped) {
+    .directive('threeWithGraphic', ['groupedByPartDate', function(groupedByPartDate) {
         return {
             templateUrl: 'templates/dashboard/three_with_graphic.html',
             replace: true,
             scope: {},
             controller: function($scope) {
+                $scope.counts = {
+                    hits: 0,
+                    sessions: 0,
+                    events: 0
+                };
+
                 $scope.filterDate = 'today';
 
                 $scope.getData = function() {
+                    $scope.status = 'loading';
+
                     var filter = {};
                     filter.to = moment().format('DD.MM.YYYY');
                     if ($scope.filterDate === 'today') {
@@ -49,13 +74,19 @@ monitorApp
                         filter.from = moment().subtract('M', 1).format('DD.MM.YYYY');
                     }
 
-                    ThreeGrouped.get(filter, function(data){
-                        $scope.graphic = data;
-                        $scope.counts = {};
-                        _.each(data, function(items, key) {
-                            $scope.counts[key] = _.reduce(items, function(memo, num) {return memo + num;}, 0);
-                        });
-                    });
+                    groupedByPartDate.get(filter,
+                        function(data) {
+                            $scope.status = 'loaded';
+                            $scope.graphic = data;
+                            $scope.counts = {};
+                            _.each(data, function(items, key) {
+                                $scope.counts[key] = _.reduce(items, function(memo, num) {return memo + num;}, 0);
+                            });
+                        },
+                        function(error) {
+                            $scope.status = 'error';
+                        }
+                    );
                 };
 
                 $scope.refresh = $scope.getData;
@@ -173,6 +204,42 @@ monitorApp
                         });
                     }
                 });
+            }
+        }}]
+    )
+    .directive('hitSlowest', ['hitSlowestByDate', function(hitSlowestByDate) {
+        return {
+            templateUrl: 'templates/dashboard/hit_slowest.html',
+            replace: true,
+            scope: {},
+            controller: function($scope) {
+                $scope.filterDate = 'today';
+
+                $scope.getData = function() {
+                    $scope.status = 'loading';
+                    var filter = {};
+                    filter.to = moment().format('DD.MM.YYYY');
+                    if ($scope.filterDate === 'today') {
+                        filter.from = moment().format('DD.MM.YYYY');
+                    } else if ($scope.filterDate === 'week') {
+                        filter.from = moment().subtract('w', 1).format('DD.MM.YYYY');
+                    } else if ($scope.filterDate === 'month') {
+                        filter.from = moment().subtract('M', 1).format('DD.MM.YYYY');
+                    }
+
+                    hitSlowestByDate.query(filter,
+                        function(data) {
+                            $scope.status = 'loaded';
+                            $scope.urls = data;
+                        },
+                        function(error) {
+                            $scope.status = 'error';
+                        }
+                    );
+                };
+
+                $scope.refresh = $scope.getData;
+                $scope.getData();
             }
         }}]
     );

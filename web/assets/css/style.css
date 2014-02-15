@@ -420,6 +420,17 @@ table.table {
     border-top-left-radius: 3px;
     border-top-right-radius: 3px;
 }
+
+.grid-title .loading-status {
+    font-size: 22px;
+    padding-right: 10px;
+    padding-top:5px;
+}
+
+.grid-title .title {
+    padding-left: 20px;
+}
+
 .grid-title .pull-left .icon-title {
     padding-right:10px;
     padding-left:10px;
@@ -479,6 +490,13 @@ table.table {
     float:right;
     margin-top:15px;
 }
+
+.pagetitle .loading-status {
+    margin-top: 18px;
+    margin-right: 10px;
+    font-size: 26px;
+}
+
 .pagetitle .btn, .grid-title .btn{
     color: #5f5f5f;
     border-color:#c9c9c9;
