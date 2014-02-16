@@ -222,7 +222,7 @@ monitorApp
                         filter.from = moment().subtract('M', 1).format('DD.MM.YYYY');
                     }
 
-                    hitSlowestByDate.query(filter,
+                    hitSlowestByDate.query({from: filter.from, to: filter.to, limit: 10},
                         function(data) {
                             $scope.status = 'loaded';
                             $scope.urls = data;

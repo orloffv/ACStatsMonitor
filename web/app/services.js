@@ -23,11 +23,11 @@ angular.module('restServices', ['ngResource'])
         }])
     .factory('hitSlowestByDate', ['$resource', 'configuration',
         function($resource, configuration) {
-            return $resource(configuration.api.host + ':\:port/api/servers/:serverId/statistic/hits/slowest_by_date', {
+            return $resource(configuration.api.host + ':\:port/api/servers/:serverId/statistic/hit/slowest_by_date', {
                 port: configuration.api.port,
                 serverId: '52faf353f3e40400009989e1'
             }, {
-                query: {method: 'GET', params: {from: '', to: ''}, isArray: true}
+                query: {method: 'GET', params: {from: '', to: '', limit: 10}, isArray: true}
             });
         }])
 ;
