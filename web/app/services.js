@@ -39,4 +39,13 @@ angular.module('restServices', ['ngResource'])
                 query: {method: 'GET', params: {from: '', to: '', limit: 10}, isArray: true}
             });
         }])
+    .factory('usersCompaniesActiveInAllByDate', ['$resource', 'configuration',
+        function($resource, configuration) {
+            return $resource(configuration.api.host + ':\:port/api/servers/:serverId/statistic/users_companies/count_active_in_all_by_date', {
+                port: configuration.api.port,
+                serverId: '52faf353f3e40400009989e1'
+            }, {
+                query: {method: 'GET', params: {from: '', to: ''}, isArray: true}
+            });
+        }])
 ;

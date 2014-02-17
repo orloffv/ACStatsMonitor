@@ -116,7 +116,6 @@ monitorApp
                     yaxis: {
                         show:false
                     }
-
                 };
 
                 var chartOptions = {
@@ -271,6 +270,108 @@ monitorApp
 
                 $scope.refresh = $scope.getData;
                 $scope.getData();
+            }
+        }}]
+    )
+    .directive('usersCompaniesActiveInAll', ['usersCompaniesActiveInAllByDate', function(usersCompaniesActiveInAllByDate) {
+        return {
+            templateUrl: 'templates/dashboard/users_companies_active_in_all.html',
+            replace: true,
+            scope: true,
+            controller: function($scope) {
+                $scope.graphic = {
+                    users: 0,
+                    companies: 0,
+                    users_last_hit: 0,
+                    companies_last_hit: 0
+                };
+
+                $scope.$watch('filter.date', function() {
+                    getData();
+                });
+
+                var getData = function() {
+                    $scope.status = 'loading';
+
+                    var filter = {};
+                    filter.to = moment().format('DD.MM.YYYY');
+                    if ($scope.filter.date === 'today') {
+                        filter.from = moment().format('DD.MM.YYYY');
+                    } else if ($scope.filter.date === 'week') {
+                        filter.from = moment().subtract('w', 1).format('DD.MM.YYYY');
+                    } else if ($scope.filter.date === 'month') {
+                        filter.from = moment().subtract('M', 1).format('DD.MM.YYYY');
+                    }
+
+                    usersCompaniesActiveInAllByDate.get(filter,
+                        function(data) {
+                            $scope.status = 'loaded';
+                            $scope.graphic = data;
+                        },
+                        function(error) {
+                            $scope.status = 'error';
+                        }
+                    );
+                };
+            },
+            link: function($scope, element) {
+                var pieOptions = {
+                    series: {
+                        pie: {
+                            innerRadius: 0.4,
+                            show: true,
+                            label: {
+                                show: true,
+                                radius: 4/7,
+                                formatter: function(label, series){
+                                    return '<div style="font-size:18px;text-align:center;padding:2px;color:white;">'+Math.round(series.percent)+'%</div>';
+                                },
+                                threshold: 0.1
+                            }
+                        }
+                    },
+                    legend: {
+                        show: false
+                    }
+                };
+
+                $scope.$watch("graphic", function() {
+                    if ($scope.graphic) {
+                        var activeUserPercent = 0, allUserPercent = 0;
+                        if ($scope.graphic.users_last_hit !== 0 && $scope.graphic.users !== 0) {
+                            activeUserPercent = $scope.graphic.users_last_hit / ($scope.graphic.users / 100);
+                        }
+                        if ($scope.graphic.users !== 0) {
+                            allUserPercent = 100 - activeUserPercent;
+                        }
+
+                        $.plot(
+                            $('[data-chart="users"]', element),
+                            [
+                                {label: 'Всего', data: allUserPercent, color: '#d4ecfd'},
+                                {label: 'Активные', data: activeUserPercent, color: '#3b91eb'}
+                            ],
+                            pieOptions
+                        );
+
+                        var activeCompanyPercent = 0, allCompanyPercent = 0;
+                        if ($scope.graphic.companies_last_hit !== 0 && $scope.graphic.companies !== 0) {
+                            activeCompanyPercent = $scope.graphic.companies_last_hit / ($scope.graphic.companies / 100);
+                        }
+                        if ($scope.graphic.users !== 0) {
+                            allCompanyPercent = 100 - activeCompanyPercent;
+                        }
+
+                        $.plot(
+                            $('[data-chart="companies"]', element),
+                            [
+                                {label: 'Всего', data: allCompanyPercent, color: '#d4ecfd'},
+                                {label: 'Активные', data: activeCompanyPercent, color: '#3b91eb'}
+                            ],
+                            pieOptions
+                        );
+                    }
+                });
             }
         }}]
     )
