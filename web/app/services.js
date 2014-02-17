@@ -57,4 +57,13 @@ angular.module('restServices', ['ngResource'])
                 query: {method: 'GET', params: {from: '', to: '', parts: 10}, isArray: true}
             });
         }])
+    .factory('usersGroupByHitsDate', ['$resource', 'configuration',
+        function($resource, configuration) {
+            return $resource(configuration.api.host + ':\:port/api/servers/:serverId/statistic/users/group_by_hits_date', {
+                port: configuration.api.port,
+                serverId: '52faf353f3e40400009989e1'
+            }, {
+                query: {method: 'GET', params: {from: '', to: '', limit: 10}, isArray: true}
+            });
+        }])
 ;
