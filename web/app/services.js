@@ -48,4 +48,13 @@ angular.module('restServices', ['ngResource'])
                 query: {method: 'GET', params: {from: '', to: ''}, isArray: true}
             });
         }])
+    .factory('sessionTimingByPartDate', ['$resource', 'configuration',
+        function($resource, configuration) {
+            return $resource(configuration.api.host + ':\:port/api/servers/:serverId/statistic/session/timing/group_by_part_date', {
+                port: configuration.api.port,
+                serverId: '52faf353f3e40400009989e1'
+            }, {
+                query: {method: 'GET', params: {from: '', to: '', parts: 10}, isArray: true}
+            });
+        }])
 ;

@@ -375,4 +375,125 @@ monitorApp
             }
         }}]
     )
+    .directive('sessionTiming', ['sessionTimingByPartDate', function(sessionTimingByPartDate) {
+        return {
+            templateUrl: 'templates/dashboard/session_timing.html',
+            replace: true,
+            scope: true,
+            controller: function($scope) {
+                $scope.graphic = [];
+                $scope.filter = {date: 'today'};
+
+                $scope.$watch('filter.date', function() {
+                    getData();
+                });
+
+                var getData = function() {
+                    $scope.status = 'loading';
+                    var filter = {};
+                    filter.to = moment().format('DD.MM.YYYY');
+                    if ($scope.filter.date === 'today') {
+                        filter.from = moment().format('DD.MM.YYYY');
+                    } else if ($scope.filter.date === 'week') {
+                        filter.from = moment().subtract('w', 1).format('DD.MM.YYYY');
+                    } else if ($scope.filter.date === 'month') {
+                        filter.from = moment().subtract('M', 1).format('DD.MM.YYYY');
+                    }
+
+                    sessionTimingByPartDate.query(filter,
+                        function(data) {
+                            $scope.status = 'loaded';
+                            $scope.graphic = data;
+                        },
+                        function(error) {
+                            $scope.status = 'error';
+                        }
+                    );
+                };
+            },
+            link: function($scope, element) {
+                var getYtitle = function(type, part, size) {
+                    if (type === 'week') {
+                        return moment().subtract('d', size - part).format('DD.MM');
+                    } else if (type === 'month') {
+                        return moment().subtract('d', 30 - Math.floor((30/size) * part)).format('DD.MM');
+                    } else if (type === 'today') {
+                        return moment().set('h', 24).subtract('h', Math.floor(24 - ((24/size) * (part - 1)) - (24/size/2))).format('HH');
+                    }
+
+                    return part;
+                };
+
+                $scope.$watch("graphic", function() {
+                    if ($scope.graphic) {
+                        var loadJS = [], loadPage = [], loadSecurity = [], ticks = [];
+                        var sizeGraphic = _.size($scope.graphic);
+                        _.each($scope.graphic, function(timings, part) {
+                            if (_.has(timings, 'count')) {
+                                loadJS.push([part, timings.loadJS / timings.count]);
+                                loadPage.push([part, timings.loadPage / timings.count]);
+                                loadSecurity.push([part, timings.loadSecurity / timings.count]);
+                            } else {
+                                loadJS.push([part, 0]);
+                                loadPage.push([part, 0]);
+                                loadSecurity.push([part, 0]);
+                            }
+
+                            ticks.push([part, getYtitle($scope.filter.date, part, sizeGraphic)]);
+                        });
+
+                        $.plot(
+                            $('[data-chart="timing"]', element),
+                            [
+                                { data: loadJS, label: "Загрузка JS"},
+                                { data: loadPage, label: "Полная загрузка страницы" },
+                                { data: loadSecurity, label: "Загрузка пользователя"}
+                            ],
+                            {
+                                series: {
+                                    lines: {
+                                        show: true,
+                                        lineWidth: 1,
+                                        fill: true,
+                                        fillColor: { colors: [ { opacity: 0.1 }, { opacity: 0.13 } ] }
+                                    },
+                                    points: { show: true,
+                                        lineWidth: 2,
+                                        radius: 3
+                                    },
+                                    shadowSize: 0,
+                                    stack: true
+                                },
+                                grid: {
+                                    hoverable: true,
+                                    clickable: true,
+                                    tickColor: "#f9f9f9",
+                                    borderWidth: 0
+                                },
+                                legend: {
+                                    // show: false
+                                    labelBoxBorderColor: "#fff"
+                                },
+                                colors: ["#ff6868", "#2d8aeb", "#ffa93c"],
+                                xaxis: {
+                                    ticks: ticks,
+                                    font: {
+                                        size: 12,
+                                        family: "Open Sans, Arial",
+                                        variant: "small-caps",
+                                        color: "#697695"
+                                    }
+                                },
+                                yaxis: {
+                                    ticks:3,
+                                    tickDecimals: 0,
+                                    font: {size:12, color: "#9da3a9"}
+                                }
+                            }
+                        );
+                    }
+                });
+            }
+        }}]
+    )
 ;

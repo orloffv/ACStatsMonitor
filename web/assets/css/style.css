@@ -429,6 +429,7 @@ table.table {
 
 .grid-title .title {
     padding-left: 20px;
+    width: 300px ! important;
 }
 
 .grid-title .pull-left .icon-title {
