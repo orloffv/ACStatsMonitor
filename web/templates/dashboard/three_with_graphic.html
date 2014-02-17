@@ -32,19 +32,40 @@
     <div class="info-box">
         <div class="row stats-box">
             <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-                <div class="stats-box-title">Сессии</div>
+                <div class="stats-box-title">
+                    <ng-pluralize class="stats-box-title" count="counts.sessions" when="{
+                        '0': 'Сессий',
+                        'one': 'Сессия',
+                        'few': 'Сессии',
+                        'many': 'Сессий'}">
+                    </ng-pluralize>
+                </div>
                 <div class="stats-box-all-info"><span>{{ counts.sessions }}</span></div>
                 <div class="chart" data-chart="sessions"></div>
             </div>
 
             <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-                <div class="stats-box-title">События</div>
+                <div class="stats-box-title">
+                    <ng-pluralize class="stats-box-title" count="counts.events" when="{
+                        '0': 'Событий',
+                        'one': 'Событие',
+                        'few': 'События',
+                        'many': 'Событий'}">
+                    </ng-pluralize>
+                </div>
                 <div class="stats-box-all-info"><span>{{ counts.events }}</span></div>
                 <div class="chart" data-chart="events"></div>
             </div>
 
             <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-                <div class="stats-box-title">Страницы</div>
+                <div class="stats-box-title">
+                    <ng-pluralize class="stats-box-title" count="counts.events" when="{
+                        '0': 'Страниц',
+                        'one': 'Страница',
+                        'few': 'Страницы',
+                        'many': 'Страниц'}">
+                    </ng-pluralize>
+                </div>
                 <div class="stats-box-all-info"><span>{{ counts.hits }}</span></div>
                 <div class="chart" data-chart="hits"></div>
             </div>
