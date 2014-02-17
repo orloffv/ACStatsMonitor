@@ -237,4 +237,41 @@ monitorApp
                 $scope.getData();
             }
         }}]
-    );
+    )
+    .directive('eventPopular', ['eventPopularByDate', function(eventPopularByDate) {
+        return {
+            templateUrl: 'templates/dashboard/event_popular.html',
+            replace: true,
+            scope: {},
+            controller: function($scope) {
+                $scope.filter = {date: 'today'};
+
+                $scope.getData = function() {
+                    $scope.status = 'loading';
+                    var filter = {};
+                    filter.to = moment().format('DD.MM.YYYY');
+                    if ($scope.filter.date === 'today') {
+                        filter.from = moment().format('DD.MM.YYYY');
+                    } else if ($scope.filter.date === 'week') {
+                        filter.from = moment().subtract('w', 1).format('DD.MM.YYYY');
+                    } else if ($scope.filter.date === 'month') {
+                        filter.from = moment().subtract('M', 1).format('DD.MM.YYYY');
+                    }
+
+                    eventPopularByDate.query({from: filter.from, to: filter.to, limit: 10},
+                        function(data) {
+                            $scope.status = 'loaded';
+                            $scope.events = data;
+                        },
+                        function(error) {
+                            $scope.status = 'error';
+                        }
+                    );
+                };
+
+                $scope.refresh = $scope.getData;
+                $scope.getData();
+            }
+        }}]
+    )
+;
