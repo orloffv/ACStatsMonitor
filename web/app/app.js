@@ -19,6 +19,10 @@ monitorApp.config(['$routeProvider',
                 templateUrl: 'templates/users.html',
                 controller: 'UsersCtrl'
             }).
+            when('/users/:userId', {
+                templateUrl: 'templates/user.html',
+                controller: 'UserCtrl'
+            }).
             when('/companies/:companyId/users', {
                 templateUrl: 'templates/users.html',
                 controller: 'CompanyUsersCtrl'
@@ -26,6 +30,14 @@ monitorApp.config(['$routeProvider',
             when('/companies', {
                 templateUrl: 'templates/companies.html',
                 controller: 'CompaniesCtrl'
+            }).
+            when('/events', {
+                templateUrl: 'templates/events.html',
+                controller: 'EventsCtrl'
+            }).
+            when('/hits', {
+                templateUrl: 'templates/hits.html',
+                controller: 'HitsCtrl'
             }).
             otherwise({
                 redirectTo: '/dashboard'

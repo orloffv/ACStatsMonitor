@@ -88,10 +88,54 @@ angular.module('restServices', ['ngResource'])
         function($resource, configuration) {
             return $resource(configuration.api.host + ':\:port/api/servers/:serverId/companies/:companyId/users', {
                 port: configuration.api.port,
-                serverId: '52faf353f3e40400009989e1',
-                companyId: null
+                serverId: '52faf353f3e40400009989e1'
             }, {
                 query: {method: 'GET', params: {from: '', to: '', limit: 50, order: 'lastHitAt'}, isArray: true}
+            });
+        }])
+    .factory('userEvents', ['$resource', 'configuration',
+        function($resource, configuration) {
+            return $resource(configuration.api.host + ':\:port/api/servers/:serverId/users/:userId/events', {
+                port: configuration.api.port,
+                serverId: '52faf353f3e40400009989e1'
+            }, {
+                query: {method: 'GET', params: {from: '', to: '', limit: 50, order: 'lastHitAt'}, isArray: true}
+            });
+        }])
+    .factory('userHits', ['$resource', 'configuration',
+        function($resource, configuration) {
+            return $resource(configuration.api.host + ':\:port/api/servers/:serverId/users/:userId/hits', {
+                port: configuration.api.port,
+                serverId: '52faf353f3e40400009989e1'
+            }, {
+                query: {method: 'GET', params: {from: '', to: '', limit: 50, order: 'lastHitAt'}, isArray: true}
+            });
+        }])
+    .factory('events', ['$resource', 'configuration',
+        function($resource, configuration) {
+            return $resource(configuration.api.host + ':\:port/api/servers/:serverId/events/grouped', {
+                port: configuration.api.port,
+                serverId: '52faf353f3e40400009989e1'
+            }, {
+                query: {method: 'GET', params: {from: '', to: '', limit: 50, order: 'lastAt'}, isArray: true}
+            });
+        }])
+    .factory('hits', ['$resource', 'configuration',
+        function($resource, configuration) {
+            return $resource(configuration.api.host + ':\:port/api/servers/:serverId/hits/grouped', {
+                port: configuration.api.port,
+                serverId: '52faf353f3e40400009989e1'
+            }, {
+                query: {method: 'GET', params: {from: '', to: '', limit: 50, order: 'lastAt'}, isArray: true}
+            });
+        }])
+    .factory('user', ['$resource', 'configuration',
+        function($resource, configuration) {
+            return $resource(configuration.api.host + ':\:port/api/servers/:serverId/users/:userId', {
+                port: configuration.api.port,
+                serverId: '52faf353f3e40400009989e1'
+            }, {
+                query: {method: 'GET', isArray: true}
             });
         }])
 ;

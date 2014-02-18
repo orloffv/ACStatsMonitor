@@ -14,6 +14,7 @@ monitorControllers
         function($scope, users) {
             $scope.filter = {}, $scope.users = [];
             $scope.status = 'loading';
+            $scope.type = 'users';
             users.query($scope.filter,
                 function(data) {
                     $scope.status = 'loaded';
@@ -25,11 +26,12 @@ monitorControllers
             );
         }]
     )
-    .controller('CompanyUsersCtrl', ['$scope', 'companyUsers',
-        function($scope, companyUsers) {
+    .controller('CompanyUsersCtrl', ['$scope', '$routeParams', 'companyUsers',
+        function($scope, $routeParams, companyUsers) {
             $scope.filter = {}, $scope.users = [];
             $scope.status = 'loading';
-            companyUsers.query($scope.filter,
+            $scope.type = 'companyUsers';
+            companyUsers.query(_.extend($scope.filter, {companyId: $routeParams.companyId}),
                 function(data) {
                     $scope.status = 'loaded';
                     $scope.users = data;
@@ -44,10 +46,93 @@ monitorControllers
         function($scope, companies) {
             $scope.filter = {}, $scope.companies = [];
             $scope.status = 'loading';
-            companies.query(_.extend($scope.filter, {companyId: 123}),
+            companies.query($scope.filter,
                 function(data) {
                     $scope.status = 'loaded';
                     $scope.companies = data;
+                },
+                function(error) {
+                    $scope.status = 'error';
+                }
+            );
+        }]
+    )
+    .controller('UserCtrl', ['$scope', '$routeParams', 'user', 'userEvents', 'userHits',
+        function($scope, $routeParams, user, userEvents, userHits) {
+            $scope.filter = {}, $scope.user = {}, $scope.hits = [], $scope.events = [];
+            $scope.status = 'loading';
+
+            async.parallel(
+                {
+                    user: function(callback){
+                        user.get(
+                            _.extend($scope.filter, {userId: $routeParams.userId}),
+                            function(data) {
+                                callback(data);
+                            },
+                            function(data) {
+                                callback(1, null);
+                            }
+                        );
+                    },
+                    events: function(callback){
+                        userEvents.query(
+                            _.extend($scope.filter, {userId: $routeParams.userId}),
+                            function(data) {
+                                callback(data);
+                            },
+                            function(data) {
+                                callback(1, null);
+                            }
+                        );
+                    },
+                    hits: function(callback){
+                        userHits.get(
+                            _.extend($scope.filter, {userId: $routeParams.userId}),
+                            function(data) {
+                                callback(data);
+                            },
+                            function(data) {
+                                callback(1, null);
+                            }
+                        );
+                    }
+                },
+                function(err, data) {
+                    if (err) {
+                        $scope.status = 'error';
+                    } else {
+                        $scope.user = data.user;
+                        $scope.hits = data.hits;
+                        $scope.events = data.events;
+                    }
+                }
+            );
+        }]
+    )
+    .controller('EventsCtrl', ['$scope', 'events',
+        function($scope, events) {
+            $scope.filter = {}, $scope.events = [];
+            $scope.status = 'loading';
+            events.query($scope.filter,
+                function(data) {
+                    $scope.status = 'loaded';
+                    $scope.events = data;
+                },
+                function(error) {
+                    $scope.status = 'error';
+                }
+            );
+        }]
+    )
+    .controller('HitsCtrl', ['$scope', 'hits',
+        function($scope, hits) {
+            $scope.filter = {}, $scope.hits = [];
+            $scope.status = 'loading';
+            hits.query($scope.filter,
+                function(data) {
+                    $scope.status = 'loaded';
+                    $scope.hits = data;
                 },
                 function(error) {
                     $scope.status = 'error';

@@ -1,0 +1,67 @@
+<div>
+    <div class="pagetitle">
+        <h1>
+            Пользователь {{user.name}}
+        </h1>
+        <div ng-switch on="status" class="loading-status pull-right">
+            <div class="animate-switch-container">
+                <span class="glyphicon glyphicon-refresh animate-switch" ng-switch-when="loading"></span>
+                <span class="glyphicon glyphicon-thumbs-down animate-switch" ng-switch-when="error"></span>
+                <span class="glyphicon glyphicon-thumbs-up animate-switch" ng-switch-when="loaded"></span>
+                <span class="glyphicon glyphicon-thumbs-up animate-switch" ng-switch-default></span>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div>
+        <div class="grid-content overflow" style="width: 100%;">
+
+            <table class="table table-bordered table-mod-2">
+                <thead>
+                <tr>
+                    <th>Название</th>
+                    <th>Количество</th>
+                    <th>Первое</th>
+                    <th>Последнее</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="item in events">
+                    <td>{{item.name}}</td>
+                    <td>{{item.count | number}}</td>
+                    <td>{{item.firstAt | date:'short'}}</td>
+                    <td>{{item.lastAt | date:'short'}}</td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div class="clearfix"></div>
+        </div>
+    </div>
+
+    <div>
+        <div class="grid-content overflow" style="width: 100%;">
+
+            <table class="table table-bordered table-mod-2">
+                <thead>
+                <tr>
+                    <th>Роут</th>
+                    <th>Количество</th>
+                    <th>Первое</th>
+                    <th>Последнее</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="item in hits">
+                    <td>{{item.url}}</td>
+                    <td>{{item.count | number}}</td>
+                    <td>{{item.firstAt | date:'short'}}</td>
+                    <td>{{item.lastAt | date:'short'}}</td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
