@@ -27,7 +27,7 @@
                     <th>E-Mail</th>
                     <th>Компания</th>
                     <th>Событий</th>
-                    <th>Страниц</th>
+                    <th>Хитов</th>
                     <th>Создан</th>
                     <th>Последний вход</th>
                 </tr>
@@ -35,7 +35,7 @@
                 <tbody>
                     <tr ng-repeat="item in users">
                         <td><a href="#/users/{{item.id}}">{{item.name}}</a></td>
-                        <td><a href="#/companies/{{item.additional.companyId}}">{{item.additional.company}}</a></td>
+                        <td><a href="#/companies/{{item.additional.companyId}}/users">{{item.additional.company}}</a></td>
                         <td>{{item.events | number}}</td>
                         <td>{{item.hits | number}}</td>
                         <td>{{item.createdAt | date:'short'}}</td>
