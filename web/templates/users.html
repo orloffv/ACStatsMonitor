@@ -1,0 +1,44 @@
+<div>
+    <div class="pagetitle">
+        <h1>Пользователи</h1>
+        <div ng-switch on="status" class="loading-status pull-right">
+            <div class="animate-switch-container">
+                <span class="glyphicon glyphicon-refresh animate-switch" ng-switch-when="loading"></span>
+                <span class="glyphicon glyphicon-thumbs-down animate-switch" ng-switch-when="error"></span>
+                <span class="glyphicon glyphicon-thumbs-up animate-switch" ng-switch-when="loaded"></span>
+                <span class="glyphicon glyphicon-thumbs-up animate-switch" ng-switch-default></span>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div>
+        <div class="grid-content overflow" style="width: 100%;">
+
+            <table class="table table-bordered table-mod-2">
+                <thead>
+                <tr>
+                    <th>E-Mail</th>
+                    <th>Компания</th>
+                    <th>Событий</th>
+                    <th>Страниц</th>
+                    <th>Создан</th>
+                    <th>Последний вход</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in users">
+                        <td><a href="#/users/{{item.id}}">{{item.name}}</a></td>
+                        <td><a href="#/companies/{{item.additional.companyId}}">{{item.additional.company}}</a></td>
+                        <td>{{item.events | number}}</td>
+                        <td>{{item.hits | number}}</td>
+                        <td>{{item.createdAt | date:'short'}}</td>
+                        <td>{{item.lastHitAt | date:'short'}}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>

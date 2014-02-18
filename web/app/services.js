@@ -66,4 +66,32 @@ angular.module('restServices', ['ngResource'])
                 query: {method: 'GET', params: {from: '', to: '', limit: 10}, isArray: true}
             });
         }])
+    .factory('users', ['$resource', 'configuration',
+        function($resource, configuration) {
+            return $resource(configuration.api.host + ':\:port/api/servers/:serverId/users', {
+                port: configuration.api.port,
+                serverId: '52faf353f3e40400009989e1'
+            }, {
+                query: {method: 'GET', params: {from: '', to: '', limit: 50, order: 'lastHitAt'}, isArray: true}
+            });
+        }])
+    .factory('companies', ['$resource', 'configuration',
+        function($resource, configuration) {
+            return $resource(configuration.api.host + ':\:port/api/servers/:serverId/companies', {
+                port: configuration.api.port,
+                serverId: '52faf353f3e40400009989e1'
+            }, {
+                query: {method: 'GET', params: {from: '', to: '', limit: 50, order: 'lastHitAt'}, isArray: true}
+            });
+        }])
+    .factory('companyUsers', ['$resource', 'configuration',
+        function($resource, configuration) {
+            return $resource(configuration.api.host + ':\:port/api/servers/:serverId/companies/:companyId/users', {
+                port: configuration.api.port,
+                serverId: '52faf353f3e40400009989e1',
+                companyId: null
+            }, {
+                query: {method: 'GET', params: {from: '', to: '', limit: 50, order: 'lastHitAt'}, isArray: true}
+            });
+        }])
 ;

@@ -15,6 +15,18 @@ monitorApp.config(['$routeProvider',
                 templateUrl: 'templates/dashboard.html',
                 controller: 'DashboardCtrl'
             }).
+            when('/users', {
+                templateUrl: 'templates/users.html',
+                controller: 'UsersCtrl'
+            }).
+            when('/companies/:companyId/users', {
+                templateUrl: 'templates/users.html',
+                controller: 'CompanyUsersCtrl'
+            }).
+            when('/companies', {
+                templateUrl: 'templates/companies.html',
+                controller: 'CompaniesCtrl'
+            }).
             otherwise({
                 redirectTo: '/dashboard'
             });
