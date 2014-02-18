@@ -95,7 +95,7 @@ angular.module('restServices', ['ngResource'])
         }])
     .factory('userEvents', ['$resource', 'configuration',
         function($resource, configuration) {
-            return $resource(configuration.api.host + ':\:port/api/servers/:serverId/users/:userId/events', {
+            return $resource(configuration.api.host + ':\:port/api/servers/:serverId/users/:userId/events/grouped', {
                 port: configuration.api.port,
                 serverId: '52faf353f3e40400009989e1'
             }, {
@@ -104,7 +104,7 @@ angular.module('restServices', ['ngResource'])
         }])
     .factory('userHits', ['$resource', 'configuration',
         function($resource, configuration) {
-            return $resource(configuration.api.host + ':\:port/api/servers/:serverId/users/:userId/hits', {
+            return $resource(configuration.api.host + ':\:port/api/servers/:serverId/users/:userId/hits/grouped', {
                 port: configuration.api.port,
                 serverId: '52faf353f3e40400009989e1'
             }, {

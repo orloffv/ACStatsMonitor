@@ -68,7 +68,7 @@ monitorControllers
                         user.get(
                             _.extend($scope.filter, {userId: $routeParams.userId}),
                             function(data) {
-                                callback(data);
+                                callback(null, data);
                             },
                             function(data) {
                                 callback(1, null);
@@ -79,7 +79,7 @@ monitorControllers
                         userEvents.query(
                             _.extend($scope.filter, {userId: $routeParams.userId}),
                             function(data) {
-                                callback(data);
+                                callback(null, data);
                             },
                             function(data) {
                                 callback(1, null);
@@ -87,10 +87,10 @@ monitorControllers
                         );
                     },
                     hits: function(callback){
-                        userHits.get(
+                        userHits.query(
                             _.extend($scope.filter, {userId: $routeParams.userId}),
                             function(data) {
-                                callback(data);
+                                callback(null, data);
                             },
                             function(data) {
                                 callback(1, null);
