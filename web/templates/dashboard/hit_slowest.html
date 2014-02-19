@@ -33,8 +33,8 @@
         </div>
 
         <div class="grid-content overflow">
-            <ul class="list-visitor" ng-repeat="item in urls">
-                <li>
+            <ul class="list-visitor">
+                <li ng-repeat="item in urls">
                     <span style="float:left;" class="linecustom">{{ item.count }}</span>
                     <span style="float:left;">{{ item.url }}</span>
                     <span class="number number-right">{{ item.avg / 1000 | number:3 }}</span>

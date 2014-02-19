@@ -33,11 +33,14 @@
         </div>
 
         <div class="grid-content overflow">
-            <ul class="list-visitor" ng-repeat="item in users">
-                <li>
+            <ul class="list-visitor">
+                <li ng-repeat="item in users">
                     <span style="float:left;" class="linecustom">{{ item.hits }}</span>
-                    <span style="float:left;">{{ item.name }}({{item.additional.company}})</span>
+                    <span style="float:left;"><a href="#/users/{{item.id}}">{{item.name}}</a></span>
                     <span class="number number-right">{{ item.currentHits }}</span>
+                    <span class="company">
+                        <a href="#/companies/{{item.additional.companyId}}/users">{{item.additional.company}}</a>
+                    </span>
                     <span class="clearfix"></span>
                 </li>
             </ul>
