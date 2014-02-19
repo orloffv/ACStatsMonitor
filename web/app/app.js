@@ -5,7 +5,8 @@
 var monitorApp = angular.module('monitorApp', [
     'ngRoute',
     'monitorControllers',
-    'restServices'
+    'restServices',
+    'loaderServices'
 ]);
 
 monitorApp.config(['$routeProvider',
@@ -43,3 +44,30 @@ monitorApp.config(['$routeProvider',
                 redirectTo: '/dashboard'
             });
     }]);
+
+var loaderApp = angular.module('loaderApp', ['loaderServices', 'loaderControllers']);
+
+    angular.module('loaderControllers', [])
+        .controller('NavBarCtrl', ['$scope', '$location',
+            function($scope, $location) {
+                $scope.routeIs = function(routeName) {
+                    return $location.path() === routeName;
+                };
+            }]
+        );
+
+angular.element(document).ready(function() {
+    angular.bootstrap(document.getElementById('loader'), ['loaderApp']);
+});
+
+var globalServerId = null;
+loaderApp.run(function($rootScope, getCurrentServer) {
+    getCurrentServer(function(serverId) {
+        globalServerId = $rootScope.serverId = serverId;
+        angular.bootstrap(document, ['monitorApp']);
+    });
+});
+
+monitorApp.run(function($rootScope){
+    $rootScope.serverId = globalServerId;
+});

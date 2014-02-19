@@ -1,5 +1,5 @@
 <!doctype html>
-<html ng-app="monitorApp">
+<html>
 <head>
     <title>ACStats</title>
     <meta charset="utf-8">
@@ -12,9 +12,10 @@
     <script src="assets/js/moment.js"></script>
     <script src="assets/js/underscore.js"></script>
     <script src="app/app.js"></script>
-    <script src="config/development.js"></script>
+    <script src="config/config.js"></script>
     <script src="app/controllers.js"></script>
     <script src="app/services.js"></script>
+    <script src="app/loaderServices.js"></script>
     <script src="app/directives.js"></script>
 
     <script src="assets/js/async.js"></script>
@@ -28,8 +29,8 @@
     <link href="assets/css/style.css" rel="stylesheet">
     <link href="assets/css/icon/font-awesome.css" rel="stylesheet">
 </head>
-<body ng-controller="DashboardCtrl">
-
+<body>
+<div id="loader"></div>
 <div id="wrap">
     <div id="menu" role="navigation" ng-controller="NavBarCtrl">
         <ul class="main-menu">
