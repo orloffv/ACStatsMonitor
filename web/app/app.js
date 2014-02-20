@@ -40,6 +40,10 @@ monitorApp.config(['$routeProvider',
                 templateUrl: 'templates/hits.html',
                 controller: 'HitsCtrl'
             }).
+            when('/servers', {
+                templateUrl: 'templates/servers.html',
+                controller: 'ServersCtrl'
+            }).
             otherwise({
                 redirectTo: '/dashboard'
             });
@@ -63,11 +67,16 @@ angular.element(document).ready(function() {
 var globalServerId = null;
 loaderApp.run(function($rootScope, getCurrentServer) {
     getCurrentServer(function(serverId) {
-        globalServerId = $rootScope.serverId = serverId;
+        globalServerId = serverId;
+        $rootScope.getServerId = function() {
+            return globalServerId;
+        };
         angular.bootstrap(document, ['monitorApp']);
     });
 });
 
 monitorApp.run(function($rootScope){
-    $rootScope.serverId = globalServerId;
+    $rootScope.getServerId = function() {
+        return globalServerId;
+    };
 });

@@ -2,7 +2,7 @@
 
 /* Controllers */
 
-var monitorControllers = angular.module('monitorControllers', []);
+var monitorControllers = angular.module('monitorControllers', ['LocalStorageModule']);
 
 monitorControllers
     .controller('DashboardCtrl', ['$scope',
@@ -133,6 +133,28 @@ monitorControllers
                 function(data) {
                     $scope.status = 'loaded';
                     $scope.hits = data;
+                },
+                function(error) {
+                    $scope.status = 'error';
+                }
+            );
+        }]
+    )
+    .controller('ServersCtrl', ['$scope', 'servers', '$rootScope', 'localStorageService',
+        function($scope, hits, $rootScope, localStorageService) {
+            $scope.setServerId = function(id) {
+                localStorageService.add('serverId', id);
+                $rootScope.getServerId = function() {
+                    return id;
+                };
+            };
+
+            $scope.filter = {}, $scope.servers = [];
+            $scope.status = 'loading';
+            hits.query($scope.filter,
+                function(data) {
+                    $scope.status = 'loaded';
+                    $scope.servers = data;
                 },
                 function(error) {
                     $scope.status = 'error';

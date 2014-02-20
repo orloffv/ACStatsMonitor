@@ -6,7 +6,7 @@ angular.module('restServices', ['ngResource'])
     .factory('usersCompaniesByDate', ['$resource', 'configuration', '$rootScope',
         function($resource, configuration, $rootScope) {
             return $resource(configuration.api.host + 'api/servers/:serverId/statistic/users_companies/count_by_date', {
-                serverId: $rootScope.serverId
+                serverId: $rootScope.getServerId()
             }, {
                 query: {method: 'GET', params: {from: '', to: ''}, isArray: true}
             });
@@ -14,7 +14,7 @@ angular.module('restServices', ['ngResource'])
     .factory('groupedByPartDate', ['$resource', 'configuration', '$rootScope',
         function($resource, configuration, $rootScope) {
             return $resource(configuration.api.host + 'api/servers/:serverId/statistic/all/group_by_part_date', {
-                serverId: $rootScope.serverId
+                serverId: $rootScope.getServerId()
             }, {
                 query: {method: 'GET', params: {from: '', to: '', parts: 7}, isArray: true}
             });
@@ -22,7 +22,7 @@ angular.module('restServices', ['ngResource'])
     .factory('hitSlowestByDate', ['$resource', 'configuration', '$rootScope',
         function($resource, configuration, $rootScope) {
             return $resource(configuration.api.host + 'api/servers/:serverId/statistic/hit/slowest_by_date', {
-                serverId: $rootScope.serverId
+                serverId: $rootScope.getServerId()
             }, {
                 query: {method: 'GET', params: {from: '', to: '', limit: 10}, isArray: true}
             });
@@ -30,7 +30,7 @@ angular.module('restServices', ['ngResource'])
     .factory('eventPopularByDate', ['$resource', 'configuration', '$rootScope',
         function($resource, configuration, $rootScope) {
             return $resource(configuration.api.host + 'api/servers/:serverId/statistic/event/popular_by_date', {
-                serverId: $rootScope.serverId
+                serverId: $rootScope.getServerId()
             }, {
                 query: {method: 'GET', params: {from: '', to: '', limit: 10}, isArray: true}
             });
@@ -38,7 +38,7 @@ angular.module('restServices', ['ngResource'])
     .factory('usersCompaniesActiveInAllByDate', ['$resource', 'configuration', '$rootScope',
         function($resource, configuration, $rootScope) {
             return $resource(configuration.api.host + 'api/servers/:serverId/statistic/users_companies/count_active_in_all_by_date', {
-                serverId: $rootScope.serverId
+                serverId: $rootScope.getServerId()
             }, {
                 query: {method: 'GET', params: {from: '', to: ''}, isArray: true}
             });
@@ -46,7 +46,7 @@ angular.module('restServices', ['ngResource'])
     .factory('sessionTimingByPartDate', ['$resource', 'configuration', '$rootScope',
         function($resource, configuration, $rootScope) {
             return $resource(configuration.api.host + 'api/servers/:serverId/statistic/session/timing/group_by_part_date', {
-                serverId: $rootScope.serverId
+                serverId: $rootScope.getServerId()
             }, {
                 query: {method: 'GET', params: {from: '', to: '', parts: 10}, isArray: true}
             });
@@ -54,7 +54,7 @@ angular.module('restServices', ['ngResource'])
     .factory('usersGroupByHitsDate', ['$resource', 'configuration', '$rootScope',
         function($resource, configuration, $rootScope) {
             return $resource(configuration.api.host + 'api/servers/:serverId/statistic/users/group_by_hits_date', {
-                serverId: $rootScope.serverId
+                serverId: $rootScope.getServerId()
             }, {
                 query: {method: 'GET', params: {from: '', to: '', limit: 10}, isArray: true}
             });
@@ -62,7 +62,7 @@ angular.module('restServices', ['ngResource'])
     .factory('users', ['$resource', 'configuration', '$rootScope',
         function($resource, configuration, $rootScope) {
             return $resource(configuration.api.host + 'api/servers/:serverId/users', {
-                serverId: $rootScope.serverId
+                serverId: $rootScope.getServerId()
             }, {
                 query: {method: 'GET', params: {from: '', to: '', limit: 50, order: 'lastHitAt'}, isArray: true}
             });
@@ -70,7 +70,7 @@ angular.module('restServices', ['ngResource'])
     .factory('companies', ['$resource', 'configuration', '$rootScope',
         function($resource, configuration, $rootScope) {
             return $resource(configuration.api.host + 'api/servers/:serverId/companies', {
-                serverId: $rootScope.serverId
+                serverId: $rootScope.getServerId()
             }, {
                 query: {method: 'GET', params: {from: '', to: '', limit: 50, order: 'lastHitAt'}, isArray: true}
             });
@@ -78,7 +78,7 @@ angular.module('restServices', ['ngResource'])
     .factory('companyUsers', ['$resource', 'configuration', '$rootScope',
         function($resource, configuration, $rootScope) {
             return $resource(configuration.api.host + 'api/servers/:serverId/companies/:companyId/users', {
-                serverId: $rootScope.serverId
+                serverId: $rootScope.getServerId()
             }, {
                 query: {method: 'GET', params: {from: '', to: '', limit: 50, order: 'lastHitAt'}, isArray: true}
             });
@@ -86,7 +86,7 @@ angular.module('restServices', ['ngResource'])
     .factory('userEvents', ['$resource', 'configuration', '$rootScope',
         function($resource, configuration, $rootScope) {
             return $resource(configuration.api.host + 'api/servers/:serverId/users/:userId/events/grouped', {
-                serverId: $rootScope.serverId
+                serverId: $rootScope.getServerId()
             }, {
                 query: {method: 'GET', params: {from: '', to: '', limit: 50, order: 'lastHitAt'}, isArray: true}
             });
@@ -94,7 +94,7 @@ angular.module('restServices', ['ngResource'])
     .factory('userHits', ['$resource', 'configuration', '$rootScope',
         function($resource, configuration, $rootScope) {
             return $resource(configuration.api.host + 'api/servers/:serverId/users/:userId/hits/grouped', {
-                serverId: $rootScope.serverId
+                serverId: $rootScope.getServerId()
             }, {
                 query: {method: 'GET', params: {from: '', to: '', limit: 50, order: 'lastHitAt'}, isArray: true}
             });
@@ -102,7 +102,7 @@ angular.module('restServices', ['ngResource'])
     .factory('events', ['$resource', 'configuration', '$rootScope',
         function($resource, configuration, $rootScope) {
             return $resource(configuration.api.host + 'api/servers/:serverId/events/grouped', {
-                serverId: $rootScope.serverId
+                serverId: $rootScope.getServerId()
             }, {
                 query: {method: 'GET', params: {from: '', to: '', limit: 50, order: 'lastAt'}, isArray: true}
             });
@@ -110,7 +110,7 @@ angular.module('restServices', ['ngResource'])
     .factory('hits', ['$resource', 'configuration', '$rootScope',
         function($resource, configuration, $rootScope) {
             return $resource(configuration.api.host + 'api/servers/:serverId/hits/grouped', {
-                serverId: $rootScope.serverId
+                serverId: $rootScope.getServerId()
             }, {
                 query: {method: 'GET', params: {from: '', to: '', limit: 50, order: 'lastAt'}, isArray: true}
             });
@@ -118,7 +118,7 @@ angular.module('restServices', ['ngResource'])
     .factory('user', ['$resource', 'configuration', '$rootScope',
         function($resource, configuration, $rootScope) {
             return $resource(configuration.api.host + 'api/servers/:serverId/users/:userId', {
-                serverId: $rootScope.serverId
+                serverId: $rootScope.getServerId()
             }, {
                 query: {method: 'GET', isArray: true}
             });
