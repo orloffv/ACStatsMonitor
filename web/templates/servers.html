@@ -28,7 +28,7 @@
                     </td>
                     <td ng-switch on="item.id === getServerId()">
                         <button ng-switch-when="true" class="btn btn-success">
-                            Выбрано
+                            Текущий
                         </button>
 
                         <button ng-switch-default ng-click="setServerId(item.id); $event.preventDefault();" class="btn btn-primary">
@@ -38,6 +38,10 @@
                 </tr>
                 </tbody>
             </table>
+
+            <button ng-click="reloadPage(); $event.preventDefault();" class="btn btn-large btn-primary">
+                Сохранить
+            </button>
 
             <div class="clearfix"></div>
         </div>

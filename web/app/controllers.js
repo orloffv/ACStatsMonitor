@@ -149,6 +149,10 @@ monitorControllers
                 };
             };
 
+            $scope.reloadPage = function() {
+                location.reload(false);
+            };
+
             $scope.filter = {}, $scope.servers = [];
             $scope.status = 'loading';
             hits.query($scope.filter,
