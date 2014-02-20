@@ -1,7 +1,7 @@
 <div>
     <div class="pagetitle">
-        <h1>
-            Пользователь {{user.name}}
+        <h1 style="text-transform: none;">
+            Пользователь {{user.additional.name}}
         </h1>
         <div ng-switch on="status" class="loading-status pull-right">
             <div class="animate-switch-container">
@@ -12,6 +12,42 @@
             </div>
         </div>
         <div class="clearfix"></div>
+    </div>
+    <div class="grid">
+        <table class="table">
+            <tr>
+                <td>E-Mail</td>
+                <td>{{user.name}}</td>
+            </tr>
+            <tr>
+                <td>Компания</td>
+                <td><a href="#/companies/{{user.additional.companyId}}/users">{{user.additional.company}}</a></td>
+            </tr>
+            <tr>
+                <td>Последнее посещение</td>
+                <td>{{user.lastHitAt | date:'short'}}</td>
+            </tr>
+            <tr>
+                <td>Создан</td>
+                <td>{{user.createdAt | date:'short'}}</td>
+            </tr>
+            <tr>
+                <td>Последнее посещение</td>
+                <td>{{user.lastHitAt | date:'short'}}</td>
+            </tr>
+            <tr>
+                <td>Хитов</td>
+                <td>{{user.hits | number}}</td>
+            </tr>
+            <tr>
+                <td>Действий</td>
+                <td>{{user.events | number}}</td>
+            </tr>
+            <tr>
+                <td>Сессий</td>
+                <td>{{user.sessions | number}}</td>
+            </tr>
+        </table>
     </div>
     <div class="grid">
         <div class="grid-title">
