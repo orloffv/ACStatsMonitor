@@ -44,6 +44,10 @@ monitorApp.config(['$routeProvider',
                 templateUrl: 'templates/servers.html',
                 controller: 'ServersCtrl'
             }).
+            when('/set_server/:serverId', {
+                controller: 'SetServerCtrl',
+                template: ''
+            }).
             otherwise({
                 redirectTo: '/dashboard'
             });

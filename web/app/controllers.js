@@ -141,7 +141,7 @@ monitorControllers
         }]
     )
     .controller('ServersCtrl', ['$scope', 'servers', '$rootScope', 'localStorageService',
-        function($scope, hits, $rootScope, localStorageService) {
+        function($scope, servers, $rootScope, localStorageService) {
             $scope.setServerId = function(id) {
                 localStorageService.add('serverId', id);
                 $rootScope.getServerId = function() {
@@ -155,7 +155,7 @@ monitorControllers
 
             $scope.filter = {}, $scope.servers = [];
             $scope.status = 'loading';
-            hits.query($scope.filter,
+            servers.query($scope.filter,
                 function(data) {
                     $scope.status = 'loaded';
                     $scope.servers = data;
@@ -164,6 +164,13 @@ monitorControllers
                     $scope.status = 'error';
                 }
             );
+        }]
+    )
+    .controller('SetServerCtrl', ['$scope', '$routeParams', 'localStorageService',
+        function($scope, $routeParams, localStorageService) {
+            var serverId = $routeParams.serverId;
+            localStorageService.add('serverId', serverId);
+            window.location = '/';
         }]
     )
     .controller('NavBarCtrl', ['$scope', '$location',
