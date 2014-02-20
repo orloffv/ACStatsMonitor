@@ -57,9 +57,9 @@ monitorControllers
             );
         }]
     )
-    .controller('UserCtrl', ['$scope', '$routeParams', 'user', 'userEvents', 'userHits',
-        function($scope, $routeParams, user, userEvents, userHits) {
-            $scope.filter = {}, $scope.user = {}, $scope.hits = [], $scope.events = [];
+    .controller('UserCtrl', ['$scope', '$routeParams', 'user', 'userEvents', 'userHits', 'userUseragents',
+        function($scope, $routeParams, user, userEvents, userHits, userUseragents) {
+            $scope.filter = {}, $scope.user = {}, $scope.hits = [], $scope.events = [], $scope.useragents = [];
             $scope.status = 'loading';
 
             async.parallel(
@@ -96,15 +96,28 @@ monitorControllers
                                 callback(1, null);
                             }
                         );
+                    },
+                    useragents: function(callback){
+                        userUseragents.query(
+                            _.extend($scope.filter, {userId: $routeParams.userId}),
+                            function(data) {
+                                callback(null, data);
+                            },
+                            function(data) {
+                                callback(1, null);
+                            }
+                        );
                     }
                 },
                 function(err, data) {
                     if (err) {
                         $scope.status = 'error';
                     } else {
+                        $scope.status = 'loaded';
                         $scope.user = data.user;
                         $scope.hits = data.hits;
                         $scope.events = data.events;
+                        $scope.useragents = data.useragents;
                     }
                 }
             );
