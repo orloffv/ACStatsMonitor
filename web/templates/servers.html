@@ -34,14 +34,14 @@
                         <button ng-switch-default ng-click="setServerId(item.id); $event.preventDefault();" class="btn btn-primary">
                             Выбрать
                         </button>
+
+                        <a style="float: right;" href="#/set_server/{{item.id}}">
+                            <i class="icon-signin"></i>
+                        </a>
                     </td>
                 </tr>
                 </tbody>
             </table>
-
-            <button ng-click="reloadPage(); $event.preventDefault();" class="btn btn-large btn-primary">
-                Сохранить
-            </button>
 
             <div class="clearfix"></div>
         </div>

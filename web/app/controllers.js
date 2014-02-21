@@ -160,9 +160,7 @@ monitorControllers
                 $rootScope.getServerId = function() {
                     return id;
                 };
-            };
 
-            $scope.reloadPage = function() {
                 location.reload(false);
             };
 
