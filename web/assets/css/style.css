@@ -429,7 +429,7 @@ table.table {
 
 .grid-title .title {
     padding-left: 20px;
-    width: 300px ! important;
+    width: auto ! important;
 }
 
 .grid-title .pull-left .icon-title {
@@ -2257,4 +2257,30 @@ dd {
     input[type="checkbox"]:checked + label span {	background:url(../images/ie/check_radio_sheet.png) -26px top no-repeat;}
     input[type="radio"] + label span {	background:url(../images/ie/check_radio_sheet.png) -53px top no-repeat;}
     input[type="radio"]:checked + label span {	background:url(../images/ie/check_radio_sheet.png) -78px top no-repeat;}
+}
+
+
+.chart-block {
+    width: 250px;
+    margin: 0px auto;
+    float:left;
+}
+
+.parent-chart-block :last-child .chart-block {
+    float: right;
+}
+
+.chart-block [data-chart] {
+    width: 250px;
+    height: 250px;
+}
+
+.chart-title {
+    text-align: center;
+}
+
+@media (max-width: 1200px) {
+    .chart-block {
+        float: none ! important;
+    }
 }
