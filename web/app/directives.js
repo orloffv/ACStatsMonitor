@@ -345,6 +345,42 @@ monitorApp
             }
         }}]
     )
+    .directive('countCities', ['countCities', function(countCities) {
+        return {
+            templateUrl: 'templates/dashboard/count_cities.html',
+            replace: true,
+            scope: {},
+            controller: function($scope) {
+                $scope.filter = {date: 'today'};
+
+                $scope.getData = function() {
+                    $scope.status = 'loading';
+                    var filter = {};
+                    filter.to = moment().format('DD.MM.YYYY');
+                    if ($scope.filter.date === 'today') {
+                        filter.from = moment().format('DD.MM.YYYY');
+                    } else if ($scope.filter.date === 'week') {
+                        filter.from = moment().subtract('w', 1).format('DD.MM.YYYY');
+                    } else if ($scope.filter.date === 'month') {
+                        filter.from = moment().subtract('M', 1).format('DD.MM.YYYY');
+                    }
+
+                    countCities.query({from: filter.from, to: filter.to},
+                        function(data) {
+                            $scope.status = 'loaded';
+                            $scope.cities = data;
+                        },
+                        function(error) {
+                            $scope.status = 'error';
+                        }
+                    );
+                };
+
+                $scope.refresh = $scope.getData;
+                $scope.getData();
+            }
+        }}]
+    )
     .directive('usersCompaniesActiveInAll', ['usersCompaniesActiveInAllByDate', function(usersCompaniesActiveInAllByDate) {
         return {
             templateUrl: 'templates/dashboard/users_companies_active_in_all.html',

@@ -83,6 +83,14 @@ angular.module('restServices', ['ngResource'])
                 query: {method: 'GET', params: {from: '', to: ''}, isArray: true}
             });
         }])
+    .factory('countCities', ['$resource', 'configuration', '$rootScope',
+        function($resource, configuration, $rootScope) {
+            return $resource(configuration.api.host + 'api/servers/:serverId/statistic/count_cities', {
+                serverId: $rootScope.getServerId()
+            }, {
+                query: {method: 'GET', params: {from: '', to: ''}, isArray: true}
+            });
+        }])
     .factory('companyUsers', ['$resource', 'configuration', '$rootScope',
         function($resource, configuration, $rootScope) {
             return $resource(configuration.api.host + 'api/servers/:serverId/companies/:companyId/users', {
