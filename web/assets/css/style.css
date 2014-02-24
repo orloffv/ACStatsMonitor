@@ -2270,7 +2270,7 @@ dd {
     float:left;
 }
 
-.parent-chart-block :last-child .chart-block {
+.parent-chart-block .chart-block:last-of-type {
     float: right;
 }
 

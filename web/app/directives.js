@@ -448,12 +448,11 @@ monitorApp
                     if ($scope.graphic) {
                         var activeUserPercent = 0, allUserPercent = 0;
                         if ($scope.graphic.users_last_hit !== 0 && $scope.graphic.users !== 0) {
-                            activeUserPercent = $scope.graphic.users_last_hit / ($scope.graphic.users / 100);
+                            activeUserPercent = Math.ceil($scope.graphic.users_last_hit / ($scope.graphic.users / 100));
                         }
                         if ($scope.graphic.users !== 0) {
                             allUserPercent = 100 - activeUserPercent;
                         }
-
                         $.plot(
                             $('[data-chart="users"]', element),
                             [
@@ -465,7 +464,7 @@ monitorApp
 
                         var activeCompanyPercent = 0, allCompanyPercent = 0;
                         if ($scope.graphic.companies_last_hit !== 0 && $scope.graphic.companies !== 0) {
-                            activeCompanyPercent = $scope.graphic.companies_last_hit / ($scope.graphic.companies / 100);
+                            activeCompanyPercent = Math.ceil($scope.graphic.companies_last_hit / ($scope.graphic.companies / 100));
                         }
                         if ($scope.graphic.users !== 0) {
                             allCompanyPercent = 100 - activeCompanyPercent;
