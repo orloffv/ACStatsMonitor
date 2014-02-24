@@ -309,11 +309,47 @@ monitorApp
             }
         }}]
     )
+    .directive('countBrowsers', ['countBrowsers', function(countBrowsers) {
+        return {
+            templateUrl: 'templates/dashboard/count_browsers.html',
+            replace: true,
+            scope: {},
+            controller: function($scope) {
+                $scope.filter = {date: 'today'};
+
+                $scope.getData = function() {
+                    $scope.status = 'loading';
+                    var filter = {};
+                    filter.to = moment().format('DD.MM.YYYY');
+                    if ($scope.filter.date === 'today') {
+                        filter.from = moment().format('DD.MM.YYYY');
+                    } else if ($scope.filter.date === 'week') {
+                        filter.from = moment().subtract('w', 1).format('DD.MM.YYYY');
+                    } else if ($scope.filter.date === 'month') {
+                        filter.from = moment().subtract('M', 1).format('DD.MM.YYYY');
+                    }
+
+                    countBrowsers.query({from: filter.from, to: filter.to},
+                        function(data) {
+                            $scope.status = 'loaded';
+                            $scope.browsers = data;
+                        },
+                        function(error) {
+                            $scope.status = 'error';
+                        }
+                    );
+                };
+
+                $scope.refresh = $scope.getData;
+                $scope.getData();
+            }
+        }}]
+    )
     .directive('usersCompaniesActiveInAll', ['usersCompaniesActiveInAllByDate', function(usersCompaniesActiveInAllByDate) {
         return {
             templateUrl: 'templates/dashboard/users_companies_active_in_all.html',
             replace: true,
-            scope: true,
+            scope: {},
             controller: function($scope) {
                 $scope.graphic = {
                     users: 0,
@@ -322,11 +358,9 @@ monitorApp
                     companies_last_hit: 0
                 };
 
-                $scope.$watch('filter.date', function() {
-                    getData();
-                });
+                $scope.filter = {date: 'today'};
 
-                var getData = function() {
+                $scope.getData = function() {
                     $scope.status = 'loading';
 
                     var filter = {};
@@ -349,6 +383,9 @@ monitorApp
                         }
                     );
                 };
+
+                $scope.refresh = $scope.getData;
+                $scope.getData();
             },
             link: function($scope, element) {
                 var pieOptions = {

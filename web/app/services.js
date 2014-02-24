@@ -75,6 +75,14 @@ angular.module('restServices', ['ngResource'])
                 query: {method: 'GET', params: {from: '', to: '', limit: 50, order: 'lastHitAt'}, isArray: true}
             });
         }])
+    .factory('countBrowsers', ['$resource', 'configuration', '$rootScope',
+        function($resource, configuration, $rootScope) {
+            return $resource(configuration.api.host + 'api/servers/:serverId/statistic/count_browsers', {
+                serverId: $rootScope.getServerId()
+            }, {
+                query: {method: 'GET', params: {from: '', to: ''}, isArray: true}
+            });
+        }])
     .factory('companyUsers', ['$resource', 'configuration', '$rootScope',
         function($resource, configuration, $rootScope) {
             return $resource(configuration.api.host + 'api/servers/:serverId/companies/:companyId/users', {
