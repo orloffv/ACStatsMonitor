@@ -192,3 +192,24 @@ monitorControllers
         }]
     )
 ;
+
+angular.module('MonitorFormatters', []).
+    filter('additionalFormatter', function() {
+        return function(data) {
+            var result = '', items = [];
+
+            _.each(data, function(item) {
+                if (item.type) {
+                    items.push(item.type);
+                } else if (item.folder) {
+                    items.push(item.folder);
+                }
+            });
+
+            if (_.size(items)) {
+                result = '(' + _.string.toSentence(items, ', ', ', ') + ')';
+            }
+
+            return result;
+        }
+    });

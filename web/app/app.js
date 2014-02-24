@@ -5,6 +5,7 @@
 var monitorApp = angular.module('monitorApp', [
     'ngRoute',
     'monitorControllers',
+    'MonitorFormatters',
     'restServices',
     'loaderServices'
 ]);
