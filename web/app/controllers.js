@@ -31,7 +31,7 @@ monitorControllers
             $scope.filter = {}, $scope.users = [];
             $scope.status = 'loading';
             $scope.type = 'companyUsers';
-            companyUsers.query(_.extend($scope.filter, {companyId: $routeParams.companyId}),
+            companyUsers.query(_.extend($scope.filter, {companyId: $routeParams.companyId, order: 'lastHitAt'}),
                 function(data) {
                     $scope.status = 'loaded';
                     $scope.users = data;
@@ -46,7 +46,7 @@ monitorControllers
         function($scope, companies) {
             $scope.filter = {}, $scope.companies = [];
             $scope.status = 'loading';
-            companies.query($scope.filter,
+            companies.query(_.extend($scope.filter, {order: 'lastHitAt'}),
                 function(data) {
                     $scope.status = 'loaded';
                     $scope.companies = data;
