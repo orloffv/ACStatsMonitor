@@ -203,6 +203,12 @@ angular.module('MonitorFormatters', []).
                     items.push(item.type);
                 } else if (item.folder) {
                     items.push(item.folder);
+                } else if (item.i18nkey) {
+                    if (strpos(item.i18nkey, 'vacancy') !== null) {
+                        items.push('vacancy');
+                    } else if (strpos(item.i18nkey, 'person') !== null) {
+                        items.push('person');
+                    }
                 }
             });
 
@@ -213,3 +219,8 @@ angular.module('MonitorFormatters', []).
             return result;
         }
     });
+
+function strpos (haystack, needle, offset) {
+    var i = (haystack + '').indexOf(needle, (offset || 0));
+    return i === -1 ? false : i;
+}
