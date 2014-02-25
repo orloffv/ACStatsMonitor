@@ -35,7 +35,9 @@
         <div class="grid-content overflow">
             <ul class="list-visitor">
                 <li ng-repeat="item in events">
-                    <span style="float:left;">{{ item.name }}</span>
+                    <span style="float:left;">
+                        <a href="#/events/{{item.name | base64}}/users">{{item.name}}</a>
+                    </span>
                     <span class="number number-right">{{ item.count }}</span>
                     <span class="clearfix"></span>
                 </li>
