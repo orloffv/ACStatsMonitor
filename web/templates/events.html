@@ -27,8 +27,8 @@
                 <tbody>
                     <tr ng-repeat="item in events">
                         <td>
-                            {{item.name}}
-                            {{item.additional | additionalFormatter}}
+                            <a href="#/events/{{item.name | base64}}/users">{{item.name}}</a>
+                            <small class="label-gray">{{item.additional | additionalFormatter}}</small>
                         </td>
                         <td>{{item.count | number}}</td>
                         <td>{{item.users | number}}</td>

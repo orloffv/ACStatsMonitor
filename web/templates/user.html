@@ -67,7 +67,7 @@
                 <tr ng-repeat="item in events">
                     <td>
                         {{item.name}}
-                        {{item.additional | additionalFormatter}}
+                        <small class="label-gray">{{item.additional | additionalFormatter}}</small>
                     </td>
                     <td>{{item.count | number}}</td>
                     <td>{{item.firstAt | date:'short'}}</td>

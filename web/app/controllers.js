@@ -42,6 +42,23 @@ monitorControllers
             );
         }]
     )
+    .controller('EventUsersCtrl', ['$scope', '$routeParams', 'eventUsers',
+        function($scope, $routeParams, eventUsers) {
+            $scope.eventHash = $routeParams.eventHash;
+            $scope.filter = {}, $scope.users = [];
+            $scope.status = 'loading';
+            $scope.type = 'eventUsers';
+            eventUsers.query(_.extend($scope.filter, {eventHash: $routeParams.eventHash, order: 'lastHitAt'}),
+                function(data) {
+                    $scope.status = 'loaded';
+                    $scope.users = data;
+                },
+                function(error) {
+                    $scope.status = 'error';
+                }
+            );
+        }]
+    )
     .controller('CompaniesCtrl', ['$scope', 'companies',
         function($scope, companies) {
             $scope.filter = {}, $scope.companies = [];
@@ -212,13 +229,26 @@ angular.module('MonitorFormatters', []).
                 }
             });
 
+            items = _.uniq(items);
+
             if (_.size(items)) {
                 result = '(' + _.string.toSentence(items, ', ', ', ') + ')';
             }
 
             return result;
         }
-    });
+    }).
+    filter('base64', function() {
+        return function(data) {
+            return Base64.encode(data);
+        }
+    }).
+    filter('base64Decode', function() {
+        return function(data) {
+            return Base64.decode(data);
+        }
+    })
+;
 
 function strpos (haystack, needle, offset) {
     var i = (haystack + '').indexOf(needle, (offset || 0));

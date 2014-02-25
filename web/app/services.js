@@ -99,6 +99,14 @@ angular.module('restServices', ['ngResource'])
                 query: {method: 'GET', params: {from: '', to: '', limit: 50, order: 'lastHitAt'}, isArray: true}
             });
         }])
+    .factory('eventUsers', ['$resource', 'configuration', '$rootScope',
+        function($resource, configuration, $rootScope) {
+            return $resource(configuration.api.host + 'api/servers/:serverId/events/:eventHash/users', {
+                serverId: $rootScope.getServerId()
+            }, {
+                query: {method: 'GET', params: {from: '', to: '', limit: 50, order: 'lastHitAt'}, isArray: true}
+            });
+        }])
     .factory('userEvents', ['$resource', 'configuration', '$rootScope',
         function($resource, configuration, $rootScope) {
             return $resource(configuration.api.host + 'api/servers/:serverId/users/:userId/events/grouped', {

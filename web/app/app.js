@@ -37,6 +37,10 @@ monitorApp.config(['$routeProvider',
                 templateUrl: 'templates/events.html',
                 controller: 'EventsCtrl'
             }).
+            when('/events/:eventHash/users', {
+                templateUrl: 'templates/users.html',
+                controller: 'EventUsersCtrl'
+            }).
             when('/hits', {
                 templateUrl: 'templates/hits.html',
                 controller: 'HitsCtrl'

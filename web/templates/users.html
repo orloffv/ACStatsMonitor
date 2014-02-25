@@ -7,6 +7,9 @@
             <span ng-switch-when="companyUsers">
                 Пользователи компании
             </span>
+            <span ng-switch-when="eventUsers">
+                Пользователи с действием "{{eventHash | base64Decode}}"
+            </span>
         </h1>
         <div ng-switch on="status" class="loading-status pull-right">
             <div class="animate-switch-container">
@@ -28,9 +31,16 @@
                     <th>Компания</th>
                     <th>ФИО</th>
                     <th>Действий</th>
-                    <th>Хитов</th>
-                    <th>Создан</th>
+                    <th ng-switch on="type">
+                        <span ng-switch-default>
+                            Хитов
+                        </span>
+                        <span ng-switch-when="eventUsers">
+                            Первая активность
+                        </span>
+                    </th>
                     <th>Последняя активность</th>
+                    <th>Создан</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -39,9 +49,23 @@
                         <td><a href="#/companies/{{item.additional.companyId}}/users">{{item.additional.company}}</a></td>
                         <td>{{item.additional.name}}</td>
                         <td>{{item.events | number}}</td>
-                        <td>{{item.hits | number}}</td>
+                        <td ng-switch on="type">
+                            <span ng-switch-default>
+                                {{item.hits | number}}
+                            </span>
+                            <span ng-switch-when="eventUsers">
+                                {{item.firstAt | date:'short'}}
+                            </span>
+                        </td>
+                        <td ng-switch on="type">
+                            <span ng-switch-default>
+                                {{item.lastHitAt | date:'short'}}
+                            </span>
+                            <span ng-switch-when="eventUsers">
+                                {{item.lastAt | date:'short'}}
+                            </span>
+                        </td>
                         <td>{{item.createdAt | date:'short'}}</td>
-                        <td>{{item.lastHitAt | date:'short'}}</td>
                     </tr>
                 </tbody>
             </table>
