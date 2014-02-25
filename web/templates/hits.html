@@ -28,9 +28,9 @@
                     <tr ng-repeat="item in hits">
                         <td>{{item.url}}</td>
                         <td>{{item.count | number}}</td>
-                        <td>{{item.users.length | number}}</td>
-                        <td>{{item.firstAt | date:'short'}}</td>
-                        <td>{{item.lastAt | date:'short'}}</td>
+                        <td>{{item.users | number}}</td>
+                        <td><nobr>{{item.firstAt | date:'short'}}</nobr></td>
+                        <td><nobr>{{item.lastAt | date:'short'}}</nobr></td>
                     </tr>
                 </tbody>
             </table>
