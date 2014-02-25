@@ -35,7 +35,7 @@
         <div class="grid-content overflow">
             <ul class="list-visitor">
                 <li ng-repeat="item in cities">
-                    <span style="float:left;">{{ item.city }}</span>
+                    <span style="float:left;"><i class="flag-{{item.country}}"></i> {{ item.city }}</span>
                     <span class="number number-right">{{ item.count }}</span>
                     <span class="clearfix"></span>
                 </li>
