@@ -12,10 +12,111 @@ monitorControllers
     )
     .controller('UsersCtrl', ['$scope', 'users',
         function($scope, users) {
-            $scope.filter = {date: 'today'};
+            $scope.filter = {date: 'today', type: 'createdAt'};
             $scope.users = [];
             $scope.status = 'loading';
             $scope.type = 'users';
+
+            var getData = function() {
+                var filter = {};
+                filter.to = moment().format('DD.MM.YYYY');
+                if ($scope.filter.date === 'today') {
+                    if ($scope.filter.type === 'createdAt') {
+                        filter.from = moment().format('DD.MM.YYYY');
+                    } else {
+                        filter.lastHitFrom = moment().format('DD.MM.YYYY');
+                    }
+                } else if ($scope.filter.date === 'week') {
+                    if ($scope.filter.type === 'createdAt') {
+                        filter.from = moment().subtract('w', 1).format('DD.MM.YYYY');
+                    } else {
+                        filter.lastHitFrom = moment().subtract('w', 1).format('DD.MM.YYYY');
+                    }
+                } else if ($scope.filter.date === 'month') {
+                    if ($scope.filter.type === 'createdAt') {
+                        filter.from = moment().subtract('M', 1).format('DD.MM.YYYY');
+                    } else {
+                        filter.lastHitFrom = moment().subtract('M', 1).format('DD.MM.YYYY');
+                    }
+                }
+
+                users.query(filter,
+                    function(data) {
+                        $scope.status = 'loaded';
+                        $scope.users = data;
+                    },
+                    function(error) {
+                        $scope.status = 'error';
+                    }
+                );
+            };
+
+            $scope.$watch('filter.type', function() {
+                getData();
+            });
+
+            $scope.$watch('filter.date', function() {
+                getData();
+            });
+        }]
+    )
+    .controller('CompanyUsersCtrl', ['$scope', '$routeParams', 'companyUsers',
+        function($scope, $routeParams, companyUsers) {
+            $scope.filter = {date: 'today', type: 'createdAt'};
+            $scope.users = [];
+            $scope.status = 'loading';
+            $scope.type = 'companyUsers';
+
+            var getData = function() {
+                var filter = {};
+                filter.to = moment().format('DD.MM.YYYY');
+                if ($scope.filter.date === 'today') {
+                    if ($scope.filter.type === 'createdAt') {
+                        filter.from = moment().format('DD.MM.YYYY');
+                    } else {
+                        filter.lastHitFrom = moment().format('DD.MM.YYYY');
+                    }
+                } else if ($scope.filter.date === 'week') {
+                    if ($scope.filter.type === 'createdAt') {
+                        filter.from = moment().subtract('w', 1).format('DD.MM.YYYY');
+                    } else {
+                        filter.lastHitFrom = moment().subtract('w', 1).format('DD.MM.YYYY');
+                    }
+                } else if ($scope.filter.date === 'month') {
+                    if ($scope.filter.type === 'createdAt') {
+                        filter.from = moment().subtract('M', 1).format('DD.MM.YYYY');
+                    } else {
+                        filter.lastHitFrom = moment().subtract('M', 1).format('DD.MM.YYYY');
+                    }
+                }
+
+                companyUsers.query(_.extend(filter, {companyId: $routeParams.companyId}),
+                    function(data) {
+                        $scope.status = 'loaded';
+                        $scope.users = data;
+                    },
+                    function(error) {
+                        $scope.status = 'error';
+                    }
+                );
+            };
+
+            $scope.$watch('filter.type', function() {
+                getData();
+            });
+
+            $scope.$watch('filter.date', function() {
+                getData();
+            });
+        }]
+    )
+    .controller('EventUsersCtrl', ['$scope', '$routeParams', 'eventUsers',
+        function($scope, $routeParams, eventUsers) {
+            $scope.filter = {date: 'today'};
+            $scope.users = [];
+            $scope.status = 'loading';
+            $scope.type = 'eventUsers';
+            $scope.eventHash = $routeParams.eventHash;
 
             var getData = function() {
                 var filter = {};
@@ -28,7 +129,7 @@ monitorControllers
                     filter.from = moment().subtract('M', 1).format('DD.MM.YYYY');
                 }
 
-                users.query(filter,
+                eventUsers.query(_.extend(filter, {eventHash: $routeParams.eventHash}),
                     function(data) {
                         $scope.status = 'loaded';
                         $scope.users = data;
@@ -44,42 +145,9 @@ monitorControllers
             });
         }]
     )
-    .controller('CompanyUsersCtrl', ['$scope', '$routeParams', 'companyUsers',
-        function($scope, $routeParams, companyUsers) {
-            $scope.filter = {}, $scope.users = [];
-            $scope.status = 'loading';
-            $scope.type = 'companyUsers';
-            companyUsers.query(_.extend($scope.filter, {companyId: $routeParams.companyId, order: 'lastHitAt'}),
-                function(data) {
-                    $scope.status = 'loaded';
-                    $scope.users = data;
-                },
-                function(error) {
-                    $scope.status = 'error';
-                }
-            );
-        }]
-    )
-    .controller('EventUsersCtrl', ['$scope', '$routeParams', 'eventUsers',
-        function($scope, $routeParams, eventUsers) {
-            $scope.eventHash = $routeParams.eventHash;
-            $scope.filter = {}, $scope.users = [];
-            $scope.status = 'loading';
-            $scope.type = 'eventUsers';
-            eventUsers.query(_.extend($scope.filter, {eventHash: $routeParams.eventHash, order: 'lastHitAt'}),
-                function(data) {
-                    $scope.status = 'loaded';
-                    $scope.users = data;
-                },
-                function(error) {
-                    $scope.status = 'error';
-                }
-            );
-        }]
-    )
     .controller('CompaniesCtrl', ['$scope', 'companies',
         function($scope, companies) {
-            $scope.filter = {date: 'today'};
+            $scope.filter = {date: 'today', type: 'createdAt'};
             $scope.companies = [];
             $scope.status = 'loading';
 
@@ -87,11 +155,23 @@ monitorControllers
                 var filter = {};
                 filter.to = moment().format('DD.MM.YYYY');
                 if ($scope.filter.date === 'today') {
-                    filter.from = moment().format('DD.MM.YYYY');
+                    if ($scope.filter.type === 'createdAt') {
+                        filter.from = moment().format('DD.MM.YYYY');
+                    } else {
+                        filter.lastHitFrom = moment().format('DD.MM.YYYY');
+                    }
                 } else if ($scope.filter.date === 'week') {
-                    filter.from = moment().subtract('w', 1).format('DD.MM.YYYY');
+                    if ($scope.filter.type === 'createdAt') {
+                        filter.from = moment().subtract('w', 1).format('DD.MM.YYYY');
+                    } else {
+                        filter.lastHitFrom = moment().subtract('w', 1).format('DD.MM.YYYY');
+                    }
                 } else if ($scope.filter.date === 'month') {
-                    filter.from = moment().subtract('M', 1).format('DD.MM.YYYY');
+                    if ($scope.filter.type === 'createdAt') {
+                        filter.from = moment().subtract('M', 1).format('DD.MM.YYYY');
+                    } else {
+                        filter.lastHitFrom = moment().subtract('M', 1).format('DD.MM.YYYY');
+                    }
                 }
 
                 companies.query(_.extend(filter, {order: 'lastHitAt'}),
@@ -104,6 +184,10 @@ monitorControllers
                     }
                 );
             };
+
+            $scope.$watch('filter.type', function() {
+                getData();
+            });
 
             $scope.$watch('filter.date', function() {
                 getData();

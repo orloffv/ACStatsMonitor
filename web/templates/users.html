@@ -11,6 +11,7 @@
                 Пользователи с действием "{{eventHash | base64Decode}}"
             </span>
         </h1>
+
         <div class="btn-group pull-right">
             <button ng-class="filter.date === 'today' ? 'active' : ''" ng-click="filter.date = 'today'; $event.preventDefault();"
                     class="btn">
@@ -24,6 +25,18 @@
                     class="btn">
                 Месяц
             </button>
+        </div>
+        <div ng-switch on="type !== 'eventUsers'">
+            <div ng-switch-when="true" class="btn-group pull-right" style="margin-right: 10px;">
+                <button ng-class="filter.type === 'createdAt' ? 'active' : ''" ng-click="filter.type = 'createdAt'; $event.preventDefault();"
+                        class="btn">
+                    Создан
+                </button>
+                <button ng-class="filter.type === 'lastHitAt' ? 'active' : ''" ng-click="filter.type = 'lastHitAt'; $event.preventDefault();"
+                        class="btn">
+                    Активность
+                </button>
+            </div>
         </div>
 
         <div ng-switch on="status" class="loading-status pull-right">
