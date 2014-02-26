@@ -4,6 +4,10 @@
                 class="btn">
             Сегодня
         </button>
+        <button ng-class="filter.date === 'yesterday' ? 'active' : ''" ng-click="filter.date = 'yesterday'; $event.preventDefault();"
+                class="btn">
+            Вчера
+        </button>
         <button ng-class="filter.date === 'week' ? 'active' : ''" ng-click="filter.date = 'week'; $event.preventDefault();"
                 class="btn">
             Неделя

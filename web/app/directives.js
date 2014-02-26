@@ -566,6 +566,13 @@ monitorApp
                         } else {
                             filter.lastHitFrom = moment().format('DD.MM.YYYY');
                         }
+                    } else if ($scope.filter.date === 'yesterday') {
+                        if (!$scope.filter.type || $scope.filter.type === 'createdAt') {
+                            filter.from = moment().subtract('d', 1).format('DD.MM.YYYY');
+                            filter.to = moment().subtract('d', 1).format('DD.MM.YYYY');
+                        } else {
+                            filter.lastHitFrom = moment().subtract('d', 1).format('DD.MM.YYYY');
+                        }
                     } else if ($scope.filter.date === 'week') {
                         if (!$scope.filter.type || $scope.filter.type === 'createdAt') {
                             filter.from = moment().subtract('w', 1).format('DD.MM.YYYY');

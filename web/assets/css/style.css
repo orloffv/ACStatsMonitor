@@ -2292,3 +2292,8 @@ dd {
 small {
     font-size: 80% ! important;
 }
+
+.a-without-style, .a-without-style:hover, .a-without-style:active {
+    text-decoration: none !important;
+    color: inherit;
+}

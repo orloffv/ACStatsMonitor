@@ -1,46 +1,54 @@
 <div class="grid-transparent row quick-stats-box">
     <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
         <div class="color-box">
-            <span>{{ counts.users_last_hit }}</span>
-            <ng-pluralize class="stats-box-title" count="counts.users_last_hit" when="{
-                '0': 'Пользователей',
-                'one': 'Пользователь',
-                'few': 'Пользователя',
-                'many': 'Пользователей'}">
-            </ng-pluralize>
+            <a class="a-without-style" href="/users">
+                <span>{{ counts.users_last_hit }}</span>
+                <ng-pluralize class="stats-box-title" count="counts.users_last_hit" when="{
+                    '0': 'Пользователей',
+                    'one': 'Пользователь',
+                    'few': 'Пользователя',
+                    'many': 'Пользователей'}">
+                </ng-pluralize>
+            </a>
         </div>
     </div>
     <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
         <div class="color-box red">
-            <span>{{ counts.users_new }}</span>
-            <ng-pluralize class="stats-box-title" count="counts.users_new" when="{
-                '0': 'Новых пользователей',
-                'one': 'Новый пользователь',
-                'few': 'Новых пользователя',
-                'many': 'Новых пользователей'}">
-            </ng-pluralize>
+            <a class="a-without-style" href="/users?filter_type=createdAt">
+                <span>{{ counts.users_new }}</span>
+                <ng-pluralize class="stats-box-title" count="counts.users_new" when="{
+                    '0': 'Новых пользователей',
+                    'one': 'Новый пользователь',
+                    'few': 'Новых пользователя',
+                    'many': 'Новых пользователей'}">
+                </ng-pluralize>
+            </a>
         </div>
     </div>
     <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
         <div class="color-box orange">
-            <span>{{ counts.companies }}</span>
-            <ng-pluralize class="stats-box-title" count="counts.companies" when="{
-                '0': 'Компаний',
-                'one': 'Компания',
-                'few': 'Компании',
-                'many': 'Компаний'}">
-            </ng-pluralize>
+            <a class="a-without-style" href="/companies">
+                <span>{{ counts.companies }}</span>
+                <ng-pluralize class="stats-box-title" count="counts.companies" when="{
+                    '0': 'Компаний',
+                    'one': 'Компания',
+                    'few': 'Компании',
+                    'many': 'Компаний'}">
+                </ng-pluralize>
+            </a>
         </div>
     </div>
     <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 ">
         <div class="color-box green">
-            <span>{{ counts.companies_new }}</span>
-            <ng-pluralize class="stats-box-title" count="counts.companies_new" when="{
-                '0': 'Новых компаний',
-                'one': 'Новая компания',
-                'few': 'Новых компании',
-                'many': 'Новых компаний'}">
-            </ng-pluralize>
+            <a class="a-without-style" href="/companies?filter_type=createdAt">
+                <span>{{ counts.companies_new }}</span>
+                <ng-pluralize class="stats-box-title" count="counts.companies_new" when="{
+                    '0': 'Новых компаний',
+                    'one': 'Новая компания',
+                    'few': 'Новых компании',
+                    'many': 'Новых компаний'}">
+                </ng-pluralize>
+            </a>
         </div>
     </div>
 </div>

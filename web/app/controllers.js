@@ -10,9 +10,9 @@ monitorControllers
             $scope.filter = {date: 'today'};
         }]
     )
-    .controller('UsersCtrl', ['$scope', 'users',
-        function($scope, users) {
-            $scope.filter = {date: 'today', type: 'lastHitAt'};
+    .controller('UsersCtrl', ['$scope', 'users', '$routeParams',
+        function($scope, users, $routeParams) {
+            $scope.filter = {date: 'today', type: $routeParams.filter_type ? $routeParams.filter_type : 'lastHitAt'};
             $scope.users = [];
             $scope.status = 'loading';
             $scope.type = 'users';
@@ -93,9 +93,9 @@ monitorControllers
             });
         }]
     )
-    .controller('CompaniesCtrl', ['$scope', 'companies',
-        function($scope, companies) {
-            $scope.filter = {date: 'today', type: 'lastHitAt'};
+    .controller('CompaniesCtrl', ['$scope', 'companies', '$routeParams',
+        function($scope, companies, $routeParams) {
+            $scope.filter = {date: 'today', type: $routeParams.filter_type ? $routeParams.filter_type : 'lastHitAt'};
             $scope.companies = [];
             $scope.status = 'loading';
             $scope.queryFilter = null;
