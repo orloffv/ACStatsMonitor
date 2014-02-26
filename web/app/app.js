@@ -10,8 +10,10 @@ var monitorApp = angular.module('monitorApp', [
     'loaderServices'
 ]);
 
-monitorApp.config(['$routeProvider',
-    function($routeProvider) {
+monitorApp.config(['$routeProvider', '$locationProvider',
+    function($routeProvider, $locationProvider) {
+        $locationProvider.html5Mode(true);
+
         $routeProvider.
             when('/dashboard', {
                 templateUrl: 'templates/dashboard.html',
