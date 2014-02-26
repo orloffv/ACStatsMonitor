@@ -130,7 +130,7 @@ monitorApp
                         return moment().subtract('d', size - part).format('DD.MM');
                     } else if (type === 'month') {
                         return moment().subtract('d', 30 - Math.floor((30/size) * part)).format('DD.MM');
-                    } else if (type === 'today') {
+                    } else if (type === 'today' || type === 'yesterday') {
                         return moment().set('h', 24).subtract('h', Math.floor(24 - ((24/size) * (part - 1)) - (24/size/2))).format('HH');
                     }
 
