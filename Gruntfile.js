@@ -180,7 +180,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-htmlcompressor');
 
-    grunt.registerTask('build', ['clean', 'copy', 'imagemin', 'cssmin', 'uglify', 'htmlcompressor']);
+    grunt.registerTask('build', ['clean', 'copy', 'imagemin', 'cssmin', 'uglify']);//, 'htmlcompressor']);
 
     grunt.registerTask('default', function() {
         var _tasks, tasks, table;
