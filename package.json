@@ -1,0 +1,12 @@
+{
+  "name": "ACStatsMonitor",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/orloffv/ACStatsMonitor.git"
+  },
+  "author": "orloffv",
+  "dependencies": {
+    "node-static": "~0.7.3"
+  }
+}
