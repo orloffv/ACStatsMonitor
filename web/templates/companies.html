@@ -1,6 +1,21 @@
 <div>
     <div class="pagetitle">
         <h1>Компании</h1>
+        <div class="btn-group pull-right">
+            <button ng-class="filter.date === 'today' ? 'active' : ''" ng-click="filter.date = 'today'; $event.preventDefault();"
+                    class="btn">
+                Сегодня
+            </button>
+            <button ng-class="filter.date === 'week' ? 'active' : ''" ng-click="filter.date = 'week'; $event.preventDefault();"
+                    class="btn">
+                Неделя
+            </button>
+            <button ng-class="filter.date === 'month' ? 'active' : ''" ng-click="filter.date = 'month'; $event.preventDefault();"
+                    class="btn">
+                Месяц
+            </button>
+        </div>
+
         <div ng-switch on="status" class="loading-status pull-right">
             <div class="animate-switch-container">
                 <span class="glyphicon glyphicon-refresh animate-switch" ng-switch-when="loading"></span>

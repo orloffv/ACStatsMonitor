@@ -12,18 +12,36 @@ monitorControllers
     )
     .controller('UsersCtrl', ['$scope', 'users',
         function($scope, users) {
-            $scope.filter = {}, $scope.users = [];
+            $scope.filter = {date: 'today'};
+            $scope.users = [];
             $scope.status = 'loading';
             $scope.type = 'users';
-            users.query($scope.filter,
-                function(data) {
-                    $scope.status = 'loaded';
-                    $scope.users = data;
-                },
-                function(error) {
-                    $scope.status = 'error';
+
+            var getData = function() {
+                var filter = {};
+                filter.to = moment().format('DD.MM.YYYY');
+                if ($scope.filter.date === 'today') {
+                    filter.from = moment().format('DD.MM.YYYY');
+                } else if ($scope.filter.date === 'week') {
+                    filter.from = moment().subtract('w', 1).format('DD.MM.YYYY');
+                } else if ($scope.filter.date === 'month') {
+                    filter.from = moment().subtract('M', 1).format('DD.MM.YYYY');
                 }
-            );
+
+                users.query(filter,
+                    function(data) {
+                        $scope.status = 'loaded';
+                        $scope.users = data;
+                    },
+                    function(error) {
+                        $scope.status = 'error';
+                    }
+                );
+            };
+
+            $scope.$watch('filter.date', function() {
+                getData();
+            });
         }]
     )
     .controller('CompanyUsersCtrl', ['$scope', '$routeParams', 'companyUsers',
@@ -61,17 +79,35 @@ monitorControllers
     )
     .controller('CompaniesCtrl', ['$scope', 'companies',
         function($scope, companies) {
-            $scope.filter = {}, $scope.companies = [];
+            $scope.filter = {date: 'today'};
+            $scope.companies = [];
             $scope.status = 'loading';
-            companies.query(_.extend($scope.filter, {order: 'lastHitAt'}),
-                function(data) {
-                    $scope.status = 'loaded';
-                    $scope.companies = data;
-                },
-                function(error) {
-                    $scope.status = 'error';
+
+            var getData = function() {
+                var filter = {};
+                filter.to = moment().format('DD.MM.YYYY');
+                if ($scope.filter.date === 'today') {
+                    filter.from = moment().format('DD.MM.YYYY');
+                } else if ($scope.filter.date === 'week') {
+                    filter.from = moment().subtract('w', 1).format('DD.MM.YYYY');
+                } else if ($scope.filter.date === 'month') {
+                    filter.from = moment().subtract('M', 1).format('DD.MM.YYYY');
                 }
-            );
+
+                companies.query(_.extend(filter, {order: 'lastHitAt'}),
+                    function(data) {
+                        $scope.status = 'loaded';
+                        $scope.companies = data;
+                    },
+                    function(error) {
+                        $scope.status = 'error';
+                    }
+                );
+            };
+
+            $scope.$watch('filter.date', function() {
+                getData();
+            });
         }]
     )
     .controller('UserCtrl', ['$scope', '$routeParams', 'user', 'userEvents', 'userHits', 'userUseragents',
@@ -142,32 +178,68 @@ monitorControllers
     )
     .controller('EventsCtrl', ['$scope', 'events',
         function($scope, events) {
-            $scope.filter = {}, $scope.events = [];
+            $scope.filter = {date: 'today'};
+            $scope.events = [];
             $scope.status = 'loading';
-            events.query($scope.filter,
-                function(data) {
-                    $scope.status = 'loaded';
-                    $scope.events = data;
-                },
-                function(error) {
-                    $scope.status = 'error';
+
+            var getData = function() {
+                var filter = {};
+                filter.to = moment().format('DD.MM.YYYY');
+                if ($scope.filter.date === 'today') {
+                    filter.from = moment().format('DD.MM.YYYY');
+                } else if ($scope.filter.date === 'week') {
+                    filter.from = moment().subtract('w', 1).format('DD.MM.YYYY');
+                } else if ($scope.filter.date === 'month') {
+                    filter.from = moment().subtract('M', 1).format('DD.MM.YYYY');
                 }
-            );
+
+                events.query(filter,
+                    function(data) {
+                        $scope.status = 'loaded';
+                        $scope.events = data;
+                    },
+                    function(error) {
+                        $scope.status = 'error';
+                    }
+                );
+            };
+
+            $scope.$watch('filter.date', function() {
+                getData();
+            });
         }]
     )
     .controller('HitsCtrl', ['$scope', 'hits',
         function($scope, hits) {
-            $scope.filter = {}, $scope.hits = [];
+            $scope.filter = {date: 'today'};
+            $scope.hits = [];
             $scope.status = 'loading';
-            hits.query($scope.filter,
-                function(data) {
-                    $scope.status = 'loaded';
-                    $scope.hits = data;
-                },
-                function(error) {
-                    $scope.status = 'error';
+
+            var getData = function() {
+                var filter = {};
+                filter.to = moment().format('DD.MM.YYYY');
+                if ($scope.filter.date === 'today') {
+                    filter.from = moment().format('DD.MM.YYYY');
+                } else if ($scope.filter.date === 'week') {
+                    filter.from = moment().subtract('w', 1).format('DD.MM.YYYY');
+                } else if ($scope.filter.date === 'month') {
+                    filter.from = moment().subtract('M', 1).format('DD.MM.YYYY');
                 }
-            );
+
+                hits.query(filter,
+                    function(data) {
+                        $scope.status = 'loaded';
+                        $scope.hits = data;
+                    },
+                    function(error) {
+                        $scope.status = 'error';
+                    }
+                );
+            };
+
+            $scope.$watch('filter.date', function() {
+                getData();
+            });
         }]
     )
     .controller('ServersCtrl', ['$scope', 'servers', '$rootScope', 'localStorageService',
