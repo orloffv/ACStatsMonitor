@@ -3,7 +3,7 @@
 monitorApp
     .directive('usersCompanies', ['usersCompaniesByDate', function(usersCompaniesByDate) {
         return {
-            templateUrl: 'templates/dashboard/users_companies.html',
+            templateUrl: '/templates/dashboard/users_companies.html',
             replace: true,
             scope: true,
             controller: function($scope) {
@@ -45,7 +45,7 @@ monitorApp
     )
     .directive('threeWithGraphic', ['groupedByPartDate', function(groupedByPartDate) {
         return {
-            templateUrl: 'templates/dashboard/three_with_graphic.html',
+            templateUrl: '/templates/dashboard/three_with_graphic.html',
             replace: true,
             scope: true,
             controller: function($scope) {
@@ -203,7 +203,7 @@ monitorApp
     )
     .directive('hitSlowest', ['hitSlowestByDate', function(hitSlowestByDate) {
         return {
-            templateUrl: 'templates/dashboard/hit_slowest.html',
+            templateUrl: '/templates/dashboard/hit_slowest.html',
             replace: true,
             scope: {},
             controller: function($scope) {
@@ -239,7 +239,7 @@ monitorApp
     )
     .directive('activeUsers', ['usersGroupByHitsDate', function(usersGroupByHitsDate) {
         return {
-            templateUrl: 'templates/dashboard/active_users.html',
+            templateUrl: '/templates/dashboard/active_users.html',
             replace: true,
             scope: {},
             controller: function($scope) {
@@ -275,7 +275,7 @@ monitorApp
     )
     .directive('eventPopular', ['eventPopularByDate', function(eventPopularByDate) {
         return {
-            templateUrl: 'templates/dashboard/event_popular.html',
+            templateUrl: '/templates/dashboard/event_popular.html',
             replace: true,
             scope: {},
             controller: function($scope) {
@@ -311,7 +311,7 @@ monitorApp
     )
     .directive('countBrowsers', ['countBrowsers', function(countBrowsers) {
         return {
-            templateUrl: 'templates/dashboard/count_browsers.html',
+            templateUrl: '/templates/dashboard/count_browsers.html',
             replace: true,
             scope: {},
             controller: function($scope) {
@@ -347,7 +347,7 @@ monitorApp
     )
     .directive('countCities', ['countCities', function(countCities) {
         return {
-            templateUrl: 'templates/dashboard/count_cities.html',
+            templateUrl: '/templates/dashboard/count_cities.html',
             replace: true,
             scope: {},
             controller: function($scope) {
@@ -383,7 +383,7 @@ monitorApp
     )
     .directive('usersCompaniesActiveInAll', ['usersCompaniesActiveInAllByDate', function(usersCompaniesActiveInAllByDate) {
         return {
-            templateUrl: 'templates/dashboard/users_companies_active_in_all.html',
+            templateUrl: '/templates/dashboard/users_companies_active_in_all.html',
             replace: true,
             scope: {},
             controller: function($scope) {
@@ -485,7 +485,7 @@ monitorApp
     )
     .directive('sessionTiming', ['sessionTimingByPartDate', function(sessionTimingByPartDate) {
         return {
-            templateUrl: 'templates/dashboard/session_timing.html',
+            templateUrl: '/templates/dashboard/session_timing.html',
             replace: true,
             scope: true,
             controller: function($scope) {
