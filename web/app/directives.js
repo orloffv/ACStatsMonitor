@@ -14,32 +14,23 @@ monitorApp
                     companies_new: 0
                 };
 
-                $scope.$watch('filter.date', function() {
+                var getData = function() {
+                    if ($scope.queryFilter) {
+                        usersCompaniesByDate.get(_.extend($scope.queryFilter, {}),
+                            function(data) {
+                                $scope.status = 'loaded';
+                                $scope.counts = data;
+                            },
+                            function(error) {
+                                $scope.status = 'error';
+                            }
+                        );
+                    }
+                };
+
+                $scope.$watch('queryFilter', function() {
                     getData();
                 });
-
-                var getData = function() {
-                    $scope.status = 'loading';
-                    var filter = {};
-                    filter.to = moment().format('DD.MM.YYYY');
-                    if ($scope.filter.date === 'today') {
-                        filter.from = moment().format('DD.MM.YYYY');
-                    } else if ($scope.filter.date === 'week') {
-                        filter.from = moment().subtract('w', 1).format('DD.MM.YYYY');
-                    } else if ($scope.filter.date === 'month') {
-                        filter.from = moment().subtract('M', 1).format('DD.MM.YYYY');
-                    }
-
-                    usersCompaniesByDate.get(filter,
-                        function(data) {
-                            $scope.status = 'loaded';
-                            $scope.counts = data;
-                        },
-                        function(error) {
-                            $scope.status = 'error';
-                        }
-                    );
-                };
             }
         }}]
     )
@@ -47,7 +38,6 @@ monitorApp
         return {
             templateUrl: '/templates/dashboard/three_with_graphic.html',
             replace: true,
-            scope: true,
             controller: function($scope) {
                 $scope.counts = {
                     hits: 0,
@@ -55,37 +45,30 @@ monitorApp
                     events: 0
                 };
 
-                $scope.$watch('filter.date', function() {
-                    getData();
-                });
+                $scope.hideTypeFilter = true;
+                $scope.queryFilter = null;
 
                 var getData = function() {
-                    $scope.status = 'loading';
-
-                    var filter = {};
-                    filter.to = moment().format('DD.MM.YYYY');
-                    if ($scope.filter.date === 'today') {
-                        filter.from = moment().format('DD.MM.YYYY');
-                    } else if ($scope.filter.date === 'week') {
-                        filter.from = moment().subtract('w', 1).format('DD.MM.YYYY');
-                    } else if ($scope.filter.date === 'month') {
-                        filter.from = moment().subtract('M', 1).format('DD.MM.YYYY');
+                    if ($scope.queryFilter) {
+                        groupedByPartDate.get(_.extend($scope.queryFilter, {}),
+                            function(data) {
+                                $scope.status = 'loaded';
+                                $scope.graphic = data;
+                                $scope.counts = {};
+                                _.each(data, function(items, key) {
+                                    $scope.counts[key] = _.reduce(items, function(memo, num) {return memo + num;}, 0);
+                                });
+                            },
+                            function(error) {
+                                $scope.status = 'error';
+                            }
+                        );
                     }
-
-                    groupedByPartDate.get(filter,
-                        function(data) {
-                            $scope.status = 'loaded';
-                            $scope.graphic = data;
-                            $scope.counts = {};
-                            _.each(data, function(items, key) {
-                                $scope.counts[key] = _.reduce(items, function(memo, num) {return memo + num;}, 0);
-                            });
-                        },
-                        function(error) {
-                            $scope.status = 'error';
-                        }
-                    );
                 };
+
+                $scope.$watch('queryFilter', function() {
+                    getData();
+                });
             },
             link: function($scope, element) {
                 var lineOptions = {
@@ -208,32 +191,26 @@ monitorApp
             scope: {},
             controller: function($scope) {
                 $scope.filter = {date: 'today'};
+                $scope.hideTypeFilter = true;
+                $scope.queryFilter = null;
 
-                $scope.getData = function() {
-                    $scope.status = 'loading';
-                    var filter = {};
-                    filter.to = moment().format('DD.MM.YYYY');
-                    if ($scope.filter.date === 'today') {
-                        filter.from = moment().format('DD.MM.YYYY');
-                    } else if ($scope.filter.date === 'week') {
-                        filter.from = moment().subtract('w', 1).format('DD.MM.YYYY');
-                    } else if ($scope.filter.date === 'month') {
-                        filter.from = moment().subtract('M', 1).format('DD.MM.YYYY');
+                var getData = function() {
+                    if ($scope.queryFilter) {
+                        hitSlowestByDate.query(_.extend($scope.queryFilter, {limit: 10}),
+                            function(data) {
+                                $scope.status = 'loaded';
+                                $scope.urls = data;
+                            },
+                            function(error) {
+                                $scope.status = 'error';
+                            }
+                        );
                     }
-
-                    hitSlowestByDate.query({from: filter.from, to: filter.to, limit: 10},
-                        function(data) {
-                            $scope.status = 'loaded';
-                            $scope.urls = data;
-                        },
-                        function(error) {
-                            $scope.status = 'error';
-                        }
-                    );
                 };
 
-                $scope.refresh = $scope.getData;
-                $scope.getData();
+                $scope.$watch('queryFilter', function() {
+                    getData();
+                });
             }
         }}]
     )
@@ -244,32 +221,26 @@ monitorApp
             scope: {},
             controller: function($scope) {
                 $scope.filter = {date: 'today'};
+                $scope.hideTypeFilter = true;
+                $scope.queryFilter = null;
 
-                $scope.getData = function() {
-                    $scope.status = 'loading';
-                    var filter = {};
-                    filter.to = moment().format('DD.MM.YYYY');
-                    if ($scope.filter.date === 'today') {
-                        filter.from = moment().format('DD.MM.YYYY');
-                    } else if ($scope.filter.date === 'week') {
-                        filter.from = moment().subtract('w', 1).format('DD.MM.YYYY');
-                    } else if ($scope.filter.date === 'month') {
-                        filter.from = moment().subtract('M', 1).format('DD.MM.YYYY');
+                var getData = function() {
+                    if ($scope.queryFilter) {
+                        usersGroupByHitsDate.query(_.extend($scope.queryFilter, {limit: 10}),
+                            function(data) {
+                                $scope.status = 'loaded';
+                                $scope.users = data;
+                            },
+                            function(error) {
+                                $scope.status = 'error';
+                            }
+                        );
                     }
-
-                    usersGroupByHitsDate.query({from: filter.from, to: filter.to, limit: 10},
-                        function(data) {
-                            $scope.status = 'loaded';
-                            $scope.users = data;
-                        },
-                        function(error) {
-                            $scope.status = 'error';
-                        }
-                    );
                 };
 
-                $scope.refresh = $scope.getData;
-                $scope.getData();
+                $scope.$watch('queryFilter', function() {
+                    getData();
+                });
             }
         }}]
     )
@@ -280,32 +251,26 @@ monitorApp
             scope: {},
             controller: function($scope) {
                 $scope.filter = {date: 'today'};
+                $scope.hideTypeFilter = true;
+                $scope.queryFilter = null;
 
-                $scope.getData = function() {
-                    $scope.status = 'loading';
-                    var filter = {};
-                    filter.to = moment().format('DD.MM.YYYY');
-                    if ($scope.filter.date === 'today') {
-                        filter.from = moment().format('DD.MM.YYYY');
-                    } else if ($scope.filter.date === 'week') {
-                        filter.from = moment().subtract('w', 1).format('DD.MM.YYYY');
-                    } else if ($scope.filter.date === 'month') {
-                        filter.from = moment().subtract('M', 1).format('DD.MM.YYYY');
+                var getData = function() {
+                    if ($scope.queryFilter) {
+                        eventPopularByDate.query(_.extend($scope.queryFilter, {limit: 10}),
+                            function(data) {
+                                $scope.status = 'loaded';
+                                $scope.events = data;
+                            },
+                            function(error) {
+                                $scope.status = 'error';
+                            }
+                        );
                     }
-
-                    eventPopularByDate.query({from: filter.from, to: filter.to, limit: 10},
-                        function(data) {
-                            $scope.status = 'loaded';
-                            $scope.events = data;
-                        },
-                        function(error) {
-                            $scope.status = 'error';
-                        }
-                    );
                 };
 
-                $scope.refresh = $scope.getData;
-                $scope.getData();
+                $scope.$watch('queryFilter', function() {
+                    getData();
+                });
             }
         }}]
     )
@@ -316,32 +281,26 @@ monitorApp
             scope: {},
             controller: function($scope) {
                 $scope.filter = {date: 'today'};
+                $scope.hideTypeFilter = true;
+                $scope.queryFilter = null;
 
-                $scope.getData = function() {
-                    $scope.status = 'loading';
-                    var filter = {};
-                    filter.to = moment().format('DD.MM.YYYY');
-                    if ($scope.filter.date === 'today') {
-                        filter.from = moment().format('DD.MM.YYYY');
-                    } else if ($scope.filter.date === 'week') {
-                        filter.from = moment().subtract('w', 1).format('DD.MM.YYYY');
-                    } else if ($scope.filter.date === 'month') {
-                        filter.from = moment().subtract('M', 1).format('DD.MM.YYYY');
+                var getData = function() {
+                    if ($scope.queryFilter) {
+                        countBrowsers.query(_.extend($scope.queryFilter, {limit: 10}),
+                            function(data) {
+                                $scope.status = 'loaded';
+                                $scope.browsers = data;
+                            },
+                            function(error) {
+                                $scope.status = 'error';
+                            }
+                        );
                     }
-
-                    countBrowsers.query({from: filter.from, to: filter.to},
-                        function(data) {
-                            $scope.status = 'loaded';
-                            $scope.browsers = data;
-                        },
-                        function(error) {
-                            $scope.status = 'error';
-                        }
-                    );
                 };
 
-                $scope.refresh = $scope.getData;
-                $scope.getData();
+                $scope.$watch('queryFilter', function() {
+                    getData();
+                });
             }
         }}]
     )
@@ -352,32 +311,26 @@ monitorApp
             scope: {},
             controller: function($scope) {
                 $scope.filter = {date: 'today'};
+                $scope.hideTypeFilter = true;
+                $scope.queryFilter = null;
 
-                $scope.getData = function() {
-                    $scope.status = 'loading';
-                    var filter = {};
-                    filter.to = moment().format('DD.MM.YYYY');
-                    if ($scope.filter.date === 'today') {
-                        filter.from = moment().format('DD.MM.YYYY');
-                    } else if ($scope.filter.date === 'week') {
-                        filter.from = moment().subtract('w', 1).format('DD.MM.YYYY');
-                    } else if ($scope.filter.date === 'month') {
-                        filter.from = moment().subtract('M', 1).format('DD.MM.YYYY');
+                var getData = function() {
+                    if ($scope.queryFilter) {
+                        countCities.query(_.extend($scope.queryFilter, {limit: 10}),
+                            function(data) {
+                                $scope.status = 'loaded';
+                                $scope.cities = data;
+                            },
+                            function(error) {
+                                $scope.status = 'error';
+                            }
+                        );
                     }
-
-                    countCities.query({from: filter.from, to: filter.to},
-                        function(data) {
-                            $scope.status = 'loaded';
-                            $scope.cities = data;
-                        },
-                        function(error) {
-                            $scope.status = 'error';
-                        }
-                    );
                 };
 
-                $scope.refresh = $scope.getData;
-                $scope.getData();
+                $scope.$watch('queryFilter', function() {
+                    getData();
+                });
             }
         }}]
     )
@@ -395,33 +348,26 @@ monitorApp
                 };
 
                 $scope.filter = {date: 'today'};
+                $scope.hideTypeFilter = true;
+                $scope.queryFilter = null;
 
-                $scope.getData = function() {
-                    $scope.status = 'loading';
-
-                    var filter = {};
-                    filter.to = moment().format('DD.MM.YYYY');
-                    if ($scope.filter.date === 'today') {
-                        filter.from = moment().format('DD.MM.YYYY');
-                    } else if ($scope.filter.date === 'week') {
-                        filter.from = moment().subtract('w', 1).format('DD.MM.YYYY');
-                    } else if ($scope.filter.date === 'month') {
-                        filter.from = moment().subtract('M', 1).format('DD.MM.YYYY');
+                var getData = function() {
+                    if ($scope.queryFilter) {
+                        usersCompaniesActiveInAllByDate.get(_.extend($scope.queryFilter, {}),
+                            function(data) {
+                                $scope.status = 'loaded';
+                                $scope.graphic = data;
+                            },
+                            function(error) {
+                                $scope.status = 'error';
+                            }
+                        );
                     }
-
-                    usersCompaniesActiveInAllByDate.get(filter,
-                        function(data) {
-                            $scope.status = 'loaded';
-                            $scope.graphic = data;
-                        },
-                        function(error) {
-                            $scope.status = 'error';
-                        }
-                    );
                 };
 
-                $scope.refresh = $scope.getData;
-                $scope.getData();
+                $scope.$watch('queryFilter', function() {
+                    getData();
+                });
             },
             link: function($scope, element) {
                 var pieOptions = {
@@ -491,33 +437,26 @@ monitorApp
             controller: function($scope) {
                 $scope.graphic = [];
                 $scope.filter = {date: 'today'};
-
-                $scope.$watch('filter.date', function() {
-                    getData();
-                });
+                $scope.hideTypeFilter = true;
+                $scope.queryFilter = null;
 
                 var getData = function() {
-                    $scope.status = 'loading';
-                    var filter = {};
-                    filter.to = moment().format('DD.MM.YYYY');
-                    if ($scope.filter.date === 'today') {
-                        filter.from = moment().format('DD.MM.YYYY');
-                    } else if ($scope.filter.date === 'week') {
-                        filter.from = moment().subtract('w', 1).format('DD.MM.YYYY');
-                    } else if ($scope.filter.date === 'month') {
-                        filter.from = moment().subtract('M', 1).format('DD.MM.YYYY');
+                    if ($scope.queryFilter) {
+                        sessionTimingByPartDate.query(_.extend($scope.queryFilter, {parts: 7}),
+                            function(data) {
+                                $scope.status = 'loaded';
+                                $scope.graphic = data;
+                            },
+                            function(error) {
+                                $scope.status = 'error';
+                            }
+                        );
                     }
-
-                    sessionTimingByPartDate.query(filter,
-                        function(data) {
-                            $scope.status = 'loaded';
-                            $scope.graphic = data;
-                        },
-                        function(error) {
-                            $scope.status = 'error';
-                        }
-                    );
                 };
+
+                $scope.$watch('queryFilter', function() {
+                    getData();
+                });
             },
             link: function($scope, element) {
                 var getYtitle = function(type, part, size) {
@@ -601,6 +540,48 @@ monitorApp
                         );
                     }
                 });
+            }
+        }}]
+    )
+    .directive('filter', [function() {
+        return {
+            templateUrl: '/templates/block/filter.html',
+            replace: true,
+            controller: function($scope) {
+                $scope.$watch('filter.type', function() {
+                    getFilter();
+                });
+
+                $scope.$watch('filter.date', function() {
+                    getFilter();
+                });
+
+                var getFilter = function() {
+                    var filter = {};
+                    filter.to = moment().format('DD.MM.YYYY');
+
+                    if ($scope.filter.date === 'today') {
+                        if (!$scope.filter.type || $scope.filter.type === 'createdAt') {
+                            filter.from = moment().format('DD.MM.YYYY');
+                        } else {
+                            filter.lastHitFrom = moment().format('DD.MM.YYYY');
+                        }
+                    } else if ($scope.filter.date === 'week') {
+                        if (!$scope.filter.type || $scope.filter.type === 'createdAt') {
+                            filter.from = moment().subtract('w', 1).format('DD.MM.YYYY');
+                        } else {
+                            filter.lastHitFrom = moment().subtract('w', 1).format('DD.MM.YYYY');
+                        }
+                    } else if ($scope.filter.date === 'month') {
+                        if (!$scope.filter.type || $scope.filter.type === 'createdAt') {
+                            filter.from = moment().subtract('M', 1).format('DD.MM.YYYY');
+                        } else {
+                            filter.lastHitFrom = moment().subtract('M', 1).format('DD.MM.YYYY');
+                        }
+                    }
+
+                    $scope.queryFilter = filter;
+                };
             }
         }}]
     )

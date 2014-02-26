@@ -5,30 +5,7 @@
                 <span class="title">Медленные страницы</span>
                 <div class="clearfix"></div>
             </div>
-            <div class="pull-right">
-                <div class="btn-group">
-                    <button ng-class="filter.date === 'today' ? 'active' : ''" ng-click="filter.date = 'today'; refresh(); $event.preventDefault();"
-                            class="btn">
-                        Сегодня
-                    </button>
-                    <button ng-class="filter.date === 'week' ? 'active' : ''" ng-click="filter.date = 'week'; refresh(); $event.preventDefault();"
-                            class="btn">
-                        Неделя
-                    </button>
-                    <button ng-class="filter.date === 'month' ? 'active' : ''" ng-click="filter.date = 'month'; refresh(); $event.preventDefault();"
-                            class="btn">
-                        Месяц
-                    </button>
-                </div>
-            </div>
-            <div ng-switch on="status" class="loading-status pull-right">
-                <div class="animate-switch-container">
-                    <span class="glyphicon glyphicon-refresh animate-switch" ng-switch-when="loading"></span>
-                    <span class="glyphicon glyphicon-thumbs-down animate-switch" ng-switch-when="error"></span>
-                    <span class="glyphicon glyphicon-thumbs-up animate-switch" ng-switch-when="loaded"></span>
-                    <span class="glyphicon glyphicon-thumbs-up animate-switch" ng-switch-default></span>
-                </div>
-            </div>
+            <div filter></div>
             <div class="clearfix"></div>
         </div>
 
