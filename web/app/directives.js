@@ -8,7 +8,7 @@ monitorApp
             scope: true,
             controller: function($scope) {
                 $scope.counts = {
-                    users_last_hit: 0,
+                    users: 0,
                     users_new: 0,
                     companies: 0,
                     companies_new: 0
