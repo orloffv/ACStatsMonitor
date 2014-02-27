@@ -12,8 +12,6 @@
                 <tr>
                     <th>Название</th>
                     <th>Пользователей</th>
-                    <th>Действий</th>
-                    <th>Хитов</th>
                     <th>Создана</th>
                     <th>Последняя активность</th>
                 </tr>
@@ -22,8 +20,6 @@
                     <tr ng-repeat="item in companies">
                         <td><a href="/companies/{{item.id}}/users">{{item.name}}</a></td>
                         <td>{{item.count | number}}</td>
-                        <td>{{item.events | number}}</td>
-                        <td>{{item.hits | number}}</td>
                         <td>{{item.createdAt | date:'short'}}</td>
                         <td>{{item.lastHitAt | date:'short'}}</td>
                     </tr>

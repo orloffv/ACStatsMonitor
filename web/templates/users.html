@@ -24,17 +24,15 @@
                     <th>E-Mail</th>
                     <th>Компания</th>
                     <th>ФИО</th>
-                    <th>Действий</th>
+                    <th>Последняя активность</th>
                     <th ng-switch on="type">
                         <span ng-switch-default>
-                            Хитов
+                            Создан
                         </span>
                         <span ng-switch-when="eventUsers">
                             Первая активность
                         </span>
                     </th>
-                    <th>Последняя активность</th>
-                    <th>Создан</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -42,15 +40,6 @@
                         <td><a href="/users/{{item.id}}">{{item.name}}</a></td>
                         <td><a href="/companies/{{item.additional.companyId}}/users">{{item.additional.company}}</a></td>
                         <td>{{item.additional.name}}</td>
-                        <td>{{item.events | number}}</td>
-                        <td ng-switch on="type">
-                            <span ng-switch-default>
-                                {{item.hits | number}}
-                            </span>
-                            <span ng-switch-when="eventUsers">
-                                {{item.firstAt | date:'short'}}
-                            </span>
-                        </td>
                         <td ng-switch on="type">
                             <span ng-switch-default>
                                 {{item.lastHitAt | date:'short'}}
@@ -59,7 +48,14 @@
                                 {{item.lastAt | date:'short'}}
                             </span>
                         </td>
-                        <td>{{item.createdAt | date:'short'}}</td>
+                        <td ng-switch on="type">
+                            <span ng-switch-default>
+                                {{item.createdAt | date:'short'}}
+                            </span>
+                            <span ng-switch-when="eventUsers">
+                                {{item.firstAt | date:'short'}}
+                            </span>
+                        </td>
                     </tr>
                 </tbody>
             </table>
