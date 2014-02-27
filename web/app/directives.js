@@ -553,31 +553,21 @@ monitorApp
                     var filter = {};
                     filter.to = moment().format('DD.MM.YYYY');
 
+                    if ($scope.filter.type === 'lastHitAt') {
+                        filter.type = 'active';
+                    } else {
+                        filter.type = 'created';
+                    }
+
                     if ($scope.filter.date === 'today') {
-                        if (!$scope.filter.type || $scope.filter.type === 'createdAt') {
-                            filter.from = moment().format('DD.MM.YYYY');
-                        } else {
-                            filter.lastHitFrom = moment().format('DD.MM.YYYY');
-                        }
+                        filter.from = moment().format('DD.MM.YYYY');
                     } else if ($scope.filter.date === 'yesterday') {
-                        if (!$scope.filter.type || $scope.filter.type === 'createdAt') {
-                            filter.from = moment().subtract('d', 1).format('DD.MM.YYYY');
-                            filter.to = moment().subtract('d', 1).format('DD.MM.YYYY');
-                        } else {
-                            filter.lastHitFrom = moment().subtract('d', 1).format('DD.MM.YYYY');
-                        }
+                        filter.from = moment().subtract('d', 1).format('DD.MM.YYYY');
+                        filter.to = moment().subtract('d', 1).format('DD.MM.YYYY');
                     } else if ($scope.filter.date === 'week') {
-                        if (!$scope.filter.type || $scope.filter.type === 'createdAt') {
-                            filter.from = moment().subtract('w', 1).format('DD.MM.YYYY');
-                        } else {
-                            filter.lastHitFrom = moment().subtract('w', 1).format('DD.MM.YYYY');
-                        }
+                        filter.from = moment().subtract('w', 1).format('DD.MM.YYYY');
                     } else if ($scope.filter.date === 'month') {
-                        if (!$scope.filter.type || $scope.filter.type === 'createdAt') {
-                            filter.from = moment().subtract('M', 1).format('DD.MM.YYYY');
-                        } else {
-                            filter.lastHitFrom = moment().subtract('M', 1).format('DD.MM.YYYY');
-                        }
+                        filter.from = moment().subtract('M', 1).format('DD.MM.YYYY');
                     }
 
                     $scope.queryFilter = filter;
