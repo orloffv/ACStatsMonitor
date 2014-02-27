@@ -1,7 +1,7 @@
 <div class="grid-transparent row quick-stats-box">
     <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
         <div class="color-box">
-            <a class="a-without-style" href="/users">
+            <a class="a-without-style" href="/users?filter_date={{filter.date}}">
                 <span>{{ counts.users_last_hit }}</span>
                 <ng-pluralize class="stats-box-title" count="counts.users_last_hit" when="{
                     '0': 'Пользователей',
@@ -14,7 +14,7 @@
     </div>
     <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
         <div class="color-box red">
-            <a class="a-without-style" href="/users?filter_type=createdAt">
+            <a class="a-without-style" href="/users?filter_type=createdAt&filter_date={{filter.date}}">
                 <span>{{ counts.users_new }}</span>
                 <ng-pluralize class="stats-box-title" count="counts.users_new" when="{
                     '0': 'Новых пользователей',
@@ -27,7 +27,7 @@
     </div>
     <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
         <div class="color-box orange">
-            <a class="a-without-style" href="/companies">
+            <a class="a-without-style" href="/companies?filter_date={{filter.date}}">
                 <span>{{ counts.companies }}</span>
                 <ng-pluralize class="stats-box-title" count="counts.companies" when="{
                     '0': 'Компаний',
@@ -40,7 +40,7 @@
     </div>
     <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 ">
         <div class="color-box green">
-            <a class="a-without-style" href="/companies?filter_type=createdAt">
+            <a class="a-without-style" href="/companies?filter_type=createdAt&filter_date={{filter.date}}">
                 <span>{{ counts.companies_new }}</span>
                 <ng-pluralize class="stats-box-title" count="counts.companies_new" when="{
                     '0': 'Новых компаний',

@@ -45,7 +45,6 @@ monitorApp
                     events: 0
                 };
 
-                $scope.hideTypeFilter = true;
                 $scope.queryFilter = null;
 
                 var getData = function() {
@@ -191,7 +190,6 @@ monitorApp
             scope: {},
             controller: function($scope) {
                 $scope.filter = {date: 'today'};
-                $scope.hideTypeFilter = true;
                 $scope.queryFilter = null;
 
                 var getData = function() {
@@ -221,7 +219,6 @@ monitorApp
             scope: {},
             controller: function($scope) {
                 $scope.filter = {date: 'today'};
-                $scope.hideTypeFilter = true;
                 $scope.queryFilter = null;
 
                 var getData = function() {
@@ -251,7 +248,6 @@ monitorApp
             scope: {},
             controller: function($scope) {
                 $scope.filter = {date: 'today'};
-                $scope.hideTypeFilter = true;
                 $scope.queryFilter = null;
 
                 var getData = function() {
@@ -281,7 +277,6 @@ monitorApp
             scope: {},
             controller: function($scope) {
                 $scope.filter = {date: 'today'};
-                $scope.hideTypeFilter = true;
                 $scope.queryFilter = null;
 
                 var getData = function() {
@@ -311,7 +306,6 @@ monitorApp
             scope: {},
             controller: function($scope) {
                 $scope.filter = {date: 'today'};
-                $scope.hideTypeFilter = true;
                 $scope.queryFilter = null;
 
                 var getData = function() {
@@ -348,7 +342,6 @@ monitorApp
                 };
 
                 $scope.filter = {date: 'today'};
-                $scope.hideTypeFilter = true;
                 $scope.queryFilter = null;
 
                 var getData = function() {
@@ -437,7 +430,6 @@ monitorApp
             controller: function($scope) {
                 $scope.graphic = [];
                 $scope.filter = {date: 'today'};
-                $scope.hideTypeFilter = true;
                 $scope.queryFilter = null;
 
                 var getData = function() {
@@ -547,7 +539,8 @@ monitorApp
         return {
             templateUrl: '/templates/block/filter.html',
             replace: true,
-            controller: function($scope) {
+            controller: function($scope, $element, $attrs) {
+                $scope.hideTypeFilter = $scope.$eval($attrs.hidetypefilter);
                 $scope.$watch('filter.type', function() {
                     getFilter();
                 });

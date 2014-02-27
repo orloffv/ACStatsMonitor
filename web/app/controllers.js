@@ -12,7 +12,9 @@ monitorControllers
     )
     .controller('UsersCtrl', ['$scope', 'users', '$routeParams',
         function($scope, users, $routeParams) {
-            $scope.filter = {date: 'today', type: $routeParams.filter_type ? $routeParams.filter_type : 'lastHitAt'};
+            $scope.filter = {
+                date: $routeParams.filter_date ? $routeParams.filter_date : 'today',
+                type: $routeParams.filter_type ? $routeParams.filter_type : 'lastHitAt'};
             $scope.users = [];
             $scope.status = 'loading';
             $scope.type = 'users';
@@ -95,7 +97,10 @@ monitorControllers
     )
     .controller('CompaniesCtrl', ['$scope', 'companies', '$routeParams',
         function($scope, companies, $routeParams) {
-            $scope.filter = {date: 'today', type: $routeParams.filter_type ? $routeParams.filter_type : 'lastHitAt'};
+            $scope.filter = {
+                date: $routeParams.filter_date ? $routeParams.filter_date : 'today',
+                type: $routeParams.filter_type ? $routeParams.filter_type : 'lastHitAt'
+            };
             $scope.companies = [];
             $scope.status = 'loading';
             $scope.queryFilter = null;
@@ -190,7 +195,6 @@ monitorControllers
             $scope.filter = {date: 'today'};
             $scope.events = [];
             $scope.status = 'loading';
-            $scope.hideTypeFilter = true;
             $scope.queryFilter = null;
 
             var getData = function() {
@@ -217,7 +221,6 @@ monitorControllers
             $scope.filter = {date: 'today'};
             $scope.hits = [];
             $scope.status = 'loading';
-            $scope.hideTypeFilter = true;
             $scope.queryFilter = null;
 
             var getData = function() {
