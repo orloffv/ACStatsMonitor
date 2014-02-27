@@ -469,9 +469,9 @@ monitorApp
                         var sizeGraphic = _.size($scope.graphic);
                         _.each($scope.graphic, function(timings, part) {
                             if (_.has(timings, 'count')) {
-                                loadJS.push([part, timings.loadJS / timings.count]);
-                                loadPage.push([part, timings.loadPage / timings.count]);
-                                loadSecurity.push([part, timings.loadSecurity / timings.count]);
+                                loadJS.push([part, timings.loadJS]);
+                                loadPage.push([part, timings.loadPage]);
+                                loadSecurity.push([part, timings.loadSecurity]);
                             } else {
                                 loadJS.push([part, 0]);
                                 loadPage.push([part, 0]);
