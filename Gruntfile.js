@@ -178,7 +178,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-imagemin');
     grunt.loadNpmTasks('grunt-contrib-uglify');
-    grunt.loadNpmTasks('grunt-htmlcompressor');
+    //grunt.loadNpmTasks('grunt-htmlcompressor');
 
     grunt.registerTask('build', ['clean', 'copy', 'imagemin', 'cssmin', 'uglify']);//, 'htmlcompressor']);
 
