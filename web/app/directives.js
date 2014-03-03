@@ -565,9 +565,9 @@ monitorApp
                         filter.from = moment().subtract('d', 1).format('DD.MM.YYYY');
                         filter.to = moment().subtract('d', 1).format('DD.MM.YYYY');
                     } else if ($scope.filter.date === 'week') {
-                        filter.from = moment().subtract('w', 1).format('DD.MM.YYYY');
+                        filter.from = moment().subtract('w', 1).add('d', 1).format('DD.MM.YYYY');
                     } else if ($scope.filter.date === 'month') {
-                        filter.from = moment().subtract('M', 1).format('DD.MM.YYYY');
+                        filter.from = moment().subtract('M', 1).add('d', 1).format('DD.MM.YYYY');
                     }
 
                     $scope.queryFilter = filter;
