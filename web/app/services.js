@@ -27,6 +27,14 @@ angular.module('restServices', ['ngResource'])
                 query: {method: 'GET', params: {from: '', to: '', limit: 10}, isArray: true}
             });
         }])
+    .factory('apiSlowestByDate', ['$resource', 'configuration', '$rootScope',
+        function($resource, configuration, $rootScope) {
+            return $resource(configuration.api.host + 'api/servers/:serverId/statistic/time/slowest_by_date', {
+                serverId: $rootScope.getServerId()
+            }, {
+                query: {method: 'GET', params: {from: '', to: '', limit: 10, type: 'api'}, isArray: true}
+            });
+        }])
     .factory('eventPopularByDate', ['$resource', 'configuration', '$rootScope',
         function($resource, configuration, $rootScope) {
             return $resource(configuration.api.host + 'api/servers/:serverId/statistic/event/popular_by_date', {

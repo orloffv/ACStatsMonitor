@@ -212,6 +212,35 @@ monitorApp
             }
         }}]
     )
+    .directive('apiSlowest', ['apiSlowestByDate', function(apiSlowestByDate) {
+        return {
+            templateUrl: '/templates/dashboard/api_slowest.html',
+            replace: true,
+            scope: {},
+            controller: function($scope) {
+                $scope.filter = {date: 'today'};
+                $scope.queryFilter = null;
+
+                var getData = function() {
+                    if ($scope.queryFilter) {
+                        apiSlowestByDate.query(_.extend($scope.queryFilter, {limit: 10}),
+                            function(data) {
+                                $scope.status = 'loaded';
+                                $scope.queries = data;
+                            },
+                            function(error) {
+                                $scope.status = 'error';
+                            }
+                        );
+                    }
+                };
+
+                $scope.$watch('queryFilter', function() {
+                    getData();
+                });
+            }
+        }}]
+    )
     .directive('activeUsers', ['usersGroupByHitsDate', function(usersGroupByHitsDate) {
         return {
             templateUrl: '/templates/dashboard/active_users.html',
