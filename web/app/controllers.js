@@ -22,6 +22,7 @@ monitorControllers
 
             var getData = function() {
                 if ($scope.queryFilter) {
+                    $scope.status = 'loading';
                     users.query(_.extend($scope.queryFilter, {}),
                         function(data) {
                             $scope.status = 'loaded';
@@ -49,6 +50,7 @@ monitorControllers
 
             var getData = function() {
                 if ($scope.queryFilter) {
+                    $scope.status = 'loading';
                     companyUsers.query(_.extend($scope.queryFilter, {companyId: $routeParams.companyId}),
                         function(data) {
                             $scope.status = 'loaded';
@@ -78,6 +80,7 @@ monitorControllers
 
             var getData = function() {
                 if ($scope.queryFilter) {
+                    $scope.status = 'loading';
                     eventUsers.query(_.extend($scope.queryFilter, {eventHash: $routeParams.eventHash}),
                         function(data) {
                             $scope.status = 'loaded';
@@ -107,6 +110,7 @@ monitorControllers
 
             var getData = function() {
                 if ($scope.queryFilter) {
+                    $scope.status = 'loading';
                     companies.query(_.extend($scope.queryFilter, {order: 'lastHitAt'}),
                         function(data) {
                             $scope.status = 'loaded';
@@ -199,6 +203,7 @@ monitorControllers
 
             var getData = function() {
                 if ($scope.queryFilter) {
+                    $scope.status = 'loading';
                     events.query(_.extend($scope.queryFilter, {}),
                         function(data) {
                             $scope.status = 'loaded';
@@ -225,6 +230,7 @@ monitorControllers
 
             var getData = function() {
                 if ($scope.queryFilter) {
+                    $scope.status = 'loading';
                     hits.query(_.extend($scope.queryFilter, {}),
                         function(data) {
                             $scope.status = 'loaded';

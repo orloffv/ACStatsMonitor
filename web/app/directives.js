@@ -16,6 +16,7 @@ monitorApp
 
                 var getData = function() {
                     if ($scope.queryFilter) {
+                        $scope.status = 'loading';
                         usersCompaniesByDate.get(_.extend($scope.queryFilter, {}),
                             function(data) {
                                 $scope.status = 'loaded';
@@ -49,6 +50,7 @@ monitorApp
 
                 var getData = function() {
                     if ($scope.queryFilter) {
+                        $scope.status = 'loading';
                         groupedByPartDate.get(_.extend($scope.queryFilter, {}),
                             function(data) {
                                 $scope.status = 'loaded';
@@ -194,6 +196,7 @@ monitorApp
 
                 var getData = function() {
                     if ($scope.queryFilter) {
+                        $scope.status = 'loading';
                         hitSlowestByDate.query(_.extend($scope.queryFilter, {limit: 10}),
                             function(data) {
                                 $scope.status = 'loaded';
@@ -223,6 +226,7 @@ monitorApp
 
                 var getData = function() {
                     if ($scope.queryFilter) {
+                        $scope.status = 'loading';
                         apiSlowestByDate.query(_.extend($scope.queryFilter, {limit: 10}),
                             function(data) {
                                 $scope.status = 'loaded';
@@ -252,6 +256,7 @@ monitorApp
 
                 var getData = function() {
                     if ($scope.queryFilter) {
+                        $scope.status = 'loading';
                         usersGroupByHitsDate.query(_.extend($scope.queryFilter, {limit: 10}),
                             function(data) {
                                 $scope.status = 'loaded';
@@ -281,6 +286,7 @@ monitorApp
 
                 var getData = function() {
                     if ($scope.queryFilter) {
+                        $scope.status = 'loading';
                         eventPopularByDate.query(_.extend($scope.queryFilter, {limit: 10}),
                             function(data) {
                                 $scope.status = 'loaded';
@@ -310,6 +316,7 @@ monitorApp
 
                 var getData = function() {
                     if ($scope.queryFilter) {
+                        $scope.status = 'loading';
                         countBrowsers.query(_.extend($scope.queryFilter, {limit: 10}),
                             function(data) {
                                 $scope.status = 'loaded';
@@ -339,6 +346,7 @@ monitorApp
 
                 var getData = function() {
                     if ($scope.queryFilter) {
+                        $scope.status = 'loading';
                         countCities.query(_.extend($scope.queryFilter, {limit: 10}),
                             function(data) {
                                 $scope.status = 'loaded';
@@ -375,6 +383,7 @@ monitorApp
 
                 var getData = function() {
                     if ($scope.queryFilter) {
+                        $scope.status = 'loading';
                         usersCompaniesActiveInAllByDate.get(_.extend($scope.queryFilter, {}),
                             function(data) {
                                 $scope.status = 'loaded';
@@ -463,6 +472,7 @@ monitorApp
 
                 var getData = function() {
                     if ($scope.queryFilter) {
+                        $scope.status = 'loading';
                         sessionTimingByPartDate.query(_.extend($scope.queryFilter, {parts: 7}),
                             function(data) {
                                 $scope.status = 'loaded';
@@ -578,6 +588,10 @@ monitorApp
                     getFilter();
                 });
 
+                $scope.$watch('filter.refresh', function() {
+                    getFilter();
+                });
+
                 var getFilter = function() {
                     var filter = {};
                     filter.to = moment().format('DD.MM.YYYY');
@@ -598,6 +612,8 @@ monitorApp
                     } else if ($scope.filter.date === 'month') {
                         filter.from = moment().subtract('M', 1).add('d', 1).format('DD.MM.YYYY');
                     }
+
+                    $scope.filter.refresh = false;
 
                     $scope.queryFilter = filter;
                 };
